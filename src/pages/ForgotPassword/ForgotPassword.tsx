@@ -5,34 +5,28 @@ import { useFormik } from 'formik'
 import { useDispatch } from 'react-redux';
 import { Container } from '../../StyledElements/Container/Container';
 import * as Yup from 'yup'
-import { NavLink } from 'react-router-dom';
 
-export default function LoginUser(props: any) {
+export default function ForgotPassword(props: any) {
     const dispatch = useDispatch()
     const  validationSchema =  Yup.object().shape({
         email: Yup.string().required('Please enter a email'),
-        password: Yup.string().required('Please enter a password')
   })
-
-    const { handleSubmit,errors, handleChange, values }= useFormik({
-        initialValues: {
-            email: "trucguyen@gmail.com", 
-            password: "123123"
-        },
-        validationSchema,
-        onSubmit: async (values) => {
-          
-          dispatch({
-              type: "USER_LOGIN_SAGA", 
-              payload: {
-                  email: values.email,
-                  password: values.password
-              }
-          })
-    }
+  const { handleSubmit,errors, handleChange, values }= useFormik({
+    initialValues: {
+        email: ""
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      console.log('values', values)
+      dispatch({
+          type: "USER_FORGOT_PASSWORD_SAGA", 
+          payload: {
+              email: values.email,
+          }
+      })
 }
-    )
-
+}
+)
     return (
         <Container>
         <form onSubmit = {handleSubmit}>
@@ -45,17 +39,13 @@ export default function LoginUser(props: any) {
                         type="email" 
                         placeholder="email" prefix={<UserOutlined />} />
                           <p className='text-danger'> {errors.email ? errors.email : ''}</p>
-                        <Input.Password onChange={handleChange} className="my-2"  name="password" size="large" 
-                        type="password"
-                        placeholder="password" />
-                          <p className='text-danger'> {errors.password ? errors.password : ''}</p>
-                        <Button htmlType="submit" type="primary" className="my-3">Login</Button>
-                        <Button className="mx-2"><NavLink to = '/forgotPassword'> Forgot Password</NavLink></Button>
+                     
+                        <Button htmlType="submit" type="primary" className="my-3">Forgot Password</Button>
+                       
                     </div>
                 </div>
             </div>
         </form>
-        
         </Container>
     )
 }

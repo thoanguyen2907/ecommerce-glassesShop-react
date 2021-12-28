@@ -20,6 +20,7 @@ export const ADD_PRODUCT_NO_LOGIN= 'ADD_PRODUCT_NO_LOGIN'
 export const GET_USER = 'GET_USER'
 export const USER_LOGIN = 'USER_LOGIN'
 export const USER_LOGIN_GOOGLE = 'USER_LOGIN_GOOGLE'
+export const USER_FORGOT_PASSWORD = 'USER_FORGOT_PASSWORD'
 
 export const USER_SIGN_UP= 'USER_SIGN_UP'
 export const GET_USER_TOKEN_LOGIN= 'GET_USER_TOKEN_LOGIN'
@@ -536,6 +537,13 @@ export type UserLoginAction = {
     password: string
   }
 }
+export type UserForgotPasswordAction = {
+  type: typeof USER_FORGOT_PASSWORD
+  payload: {
+    email: string, 
+   
+  }
+}
 
 export type UserLoginGoogleAction = {
   type: typeof USER_LOGIN_GOOGLE
@@ -551,7 +559,7 @@ export type UserDataLoginAction = {
   }
 }
 export type UserActions =  UserLoginAction | UserSignUpAction | GetUserByIdAction | 
-GetUserLoginAction | GetUserDataByIdAction | UserLoginGoogleAction
+GetUserLoginAction | GetUserDataByIdAction | UserLoginGoogleAction | UserForgotPasswordAction
 
 export type UserLoginState = {
   userDataLogin : UserDataLogin,
