@@ -1,0 +1,12 @@
+@import '../../sass/variables';
+.features__company {
+    margin: $margin-6 auto;
+    .features__info {
+        .features__icon{
+            text-align: center;
+            margin: $margin-2 0;
+        }
+    }
+}
+
+

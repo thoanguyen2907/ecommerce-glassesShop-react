@@ -1,0 +1,118 @@
+@import '../../sass/variables';
+
+
+
+/* MAIN CSS */
+.vglasses__left{
+    background-color: $color-light-2;
+    padding: $padding-4 $padding-5;
+    box-shadow: 0 4px 10px 0 $color-rgb-black-1, 0 4px 20px 0 $color-rgb-black-2;
+    .col-4{
+        align-self: center;
+    }
+    .vglasses__items{
+        cursor: pointer;
+    }
+}
+
+.vglasses__right{
+    box-shadow: 0 4px 10px 0 $color-rgb-black-1, 0 4px 20px 0 $color-rgb-black-2;
+    .vglasses__model{
+        background-image: url('../../assets/img/model.jpg');
+        background-position: center top;
+        background-size: cover;
+        height: 600px;  
+        #glass{
+            transition: all 0.5s;
+        } 
+    }
+    .vglasses__model img{
+        position: absolute;
+        top: 46%;
+        left: 26%;
+        width: 364px;
+        height: 112px;
+        opacity: 0.9;
+    }
+    .vglasses__card{
+        position: relative;
+        overflow: hidden;
+        background-color: $color-light-2;
+    }
+    .btn-before, .btn-after{
+        padding: 5px 10px;
+        color: $color-yellow-1;
+        background-color: $color-dark-blue-1;
+    }
+}
+
+
+
+.vglasses__info{
+    position: absolute;
+    bottom:0;
+    left: 0;
+    background-color: $color-rgb-black-3;
+    width: 100%;
+    color: $color-light-2;
+    padding: 20px;
+   display: none;
+}
+
+@media screen and (max-width: 767px) and (min-width: 577px) {
+    .vglasses__right{
+    .vglasses__model img{
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    width: 256px;
+    height: 80px;
+    }
+    .vglasses__model{ 
+        height: 500px;  
+  
+        }
+    }
+}
+
+@media screen and (max-width: 575px) and (min-width: 357px) {
+    .vglasses__right{
+        .vglasses__model img{
+    top: 33%;
+    left: 22%;
+    width: 180px;
+    height: 55px;
+ 
+}
+.vglasses__model{
+    background-image: url('../../assets/img/model.jpg');
+    background-position: center top;
+    background-size: cover;
+    height: 400px;  
+   
+}
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 1024px) {
+    .vglasses__right{
+        .vglasses__model img{
+
+    top: 31%;
+    left: 16%;
+    width: 280px;
+    height: 90px;
+}
+    }
+}
+@media screen and (max-width: 992px) and (min-width: 768px) {
+    .vglasses__right{
+        .vglasses__model img{
+            top: 42%;
+            left: 26%;
+            width: 355px;
+            height: 104px;
+        }}
+    }
+
+

@@ -1,0 +1,48 @@
+@import '../../sass/_variables.scss';
+
+.product__list {
+    width: 90%;
+    margin: 0 auto;
+    .product__list__filter{
+        padding:  $padding-4  $padding-5;
+        h3 {
+            padding:  $padding-2  $padding-3;
+        }
+        .ant-checkbox-group {
+            font-size: $font-size-6;
+        }
+    }
+    .product {
+        margin: $margin-4 auto; 
+        .product__info {
+            padding-bottom: $padding-3;
+            box-shadow: $color-rgb-black 0px 3px 8px;
+            .product__pic img {
+                width: 230px;
+                height: 200px;
+                width: 80%;
+            }
+         
+            .product___detail h4 {
+                color: $color-dark-blue-1
+            }
+            .product___detail h6{
+                color: $color-dark-blue-2
+            }
+            .product__add__to__cart {
+                text-align: center;
+                margin: $margin-4 0;
+                span {
+                    margin: 0 $margin-2; 
+                    font-size: $font-size-2;
+                }
+            }
+        }
+        
+    } 
+}
+.select-option{
+    width: 180px;
+    padding: $padding-2 $padding-4;
+    font-size: $font-size-4;
+}

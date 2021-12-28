@@ -1,0 +1,86 @@
+@import '../../sass/variables'; 
+.navBar__right{
+    margin: 0 auto;
+    .nav-item{
+        margin-right:  $margin-3;
+        }
+        .nav-link{
+            padding: 0 10px;
+            font-size: $font-size-4;
+            font-weight: bold;
+        }
+        a.nav-link:hover{
+            color: #22577E;
+            font-weight: bold;
+            font-size: $font-size-4;
+        }
+}
+
+.navBar__left {
+    margin-left: auto;
+    .nav-item{
+        margin-right: $margin-2;
+    }
+    .myNavBar__cart{
+        width: 50px;
+        height: 55px;
+        text-align: center;
+        border-radius: 50%;  
+    }
+    .myNavBar__cart i {
+        font-size: $font-size-3;
+    }
+    .myNavBar__button {
+        .button--white{
+            color: $color-light-black-2;
+            background-color: $color-light-2;
+            border: 1px solid $color-light-black-3;
+            font-size: 16px;
+            padding: 8px 12px;
+            cursor: pointer;
+            &:hover{
+                color: $color-dark-black-2;
+                background-color: transparent;
+                border: 1px solid $color-dark-black-2;
+            }
+        }
+        .button--blue{
+            color: $color-light-2;
+            background-color: $color-dark-blue-2;
+            border: 1px solid $color-dark-blue-2;
+            font-size: $font-size-1;
+            padding: $padding-2 $padding-3;
+            cursor: pointer; 
+            &:hover{
+                color: $color-light-1;
+    background-color: $color-dark-blue-1;
+    border: 1px solid  $color-dark-blue-1;
+            }
+        }
+    }
+}
+
+.cart-link{
+    position: relative;
+}
+#lblCartCount {
+    font-size: 14px;
+    background: $color-red-1;
+    color: $color-light-2;
+    padding: $padding-1;
+    vertical-align: top;
+    top: 0%;
+    right: -10%;
+    position: absolute;
+}
+@media screen and (min-width: 577px) and (max-width: 767px) {
+    .navbar-collapse-edit {
+.nav-item{
+    margin-bottom: 10px;
+}
+.navbar-nav.navBar__left{
+    display: flex;
+    flex-direction: row;
+}
+    }
+}

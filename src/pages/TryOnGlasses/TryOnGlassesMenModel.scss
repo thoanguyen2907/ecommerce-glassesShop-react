@@ -1,0 +1,112 @@
+@import '../../sass/variables';
+
+/* MAIN CSS */
+.vglasses__left{
+    background-color: $color-light-2;
+    padding: $padding-4 $padding-5;
+    box-shadow: 0 4px 10px 0 $color-rgb-black-1, 0 4px 20px 0 $color-rgb-black-2;
+    .col-4{
+        align-self: center;
+    }
+    .vglasses__items{
+        cursor: pointer;
+    }
+}
+.vglasses__right{
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+    .vglasses__model__men{
+        background-image: url('../../assets/img/men-model-avatar.jpeg');
+        background-position: center top;
+        background-size: cover;
+        height: 700px;
+        
+    }
+    .vglasses__model__men img{
+        position: absolute;
+        top: 50%;
+        left: 22%;
+        width: 440px;
+        height: 126px;
+        opacity: 0.9;
+    }
+}
+.vglasses__card{
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+}
+
+.vglasses__info{
+    position: absolute;
+    bottom:0;
+    left: 0;
+    background-color: rgba(0,0,0,0.7);
+    width: 100%;
+    color: white;
+    padding: 20px;
+   display: none;
+}
+
+#glass{
+    transition: all 0.5s;
+}
+.btn-before, .btn-after{
+    padding: 5px 10px;
+    color: #F6F2D4;
+    background-color: #22577E
+}
+@media screen and (max-width: 1200px) and (min-width: 1024px) {
+    .vglasses__right{
+    .vglasses__model__men img{
+        position: absolute;
+        top: 38%;
+        left: 6%;
+        width: 350px;
+        height: 110px;
+    }
+}
+}
+@media screen and (max-width: 992px) and (min-width: 768px) {
+    .vglasses__right{
+    .vglasses__model__men img{
+        position: absolute;
+        top: 47%;
+        left: 21%;
+        width: 415px;
+        height: 132px;
+    }
+    .vglasses__model{ 
+        height: 500px;  
+        }
+}
+}
+@media screen and (max-width: 767px) and (min-width: 577px) {
+    .vglasses__right{
+    .vglasses__model__men img{
+    position: absolute;
+    top: 38%;
+    left: 20%;
+    width: 330px;
+    height: 98px;
+    }
+    .vglasses__model{ 
+        height: 400px;  
+        }
+    }
+}
+@media screen and (max-width: 575px) and (min-width: 357px) {
+    .vglasses__right{
+        .vglasses__model__men img{
+            top: 41%;
+            left: 19%;
+            width: 192px;
+            height: 60px;
+}
+.vglasses__model__men{
+    background-image: url('../../assets/img/men-model-avatar.jpeg');
+    height: 400px;  
+   
+}
+
+    }
+}

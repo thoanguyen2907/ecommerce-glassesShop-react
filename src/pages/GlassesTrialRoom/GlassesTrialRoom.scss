@@ -1,0 +1,11 @@
+@import '../../sass/variables';
+.ant-tabs-tab-btn{
+    font-size: 20px;
+}
+.ant-tabs-tab.ant-tabs-tab-active {
+    .ant-tabs-tab-btn{
+        color: $color-dark-blue-1 !important;
+      
+    }
+   
+}

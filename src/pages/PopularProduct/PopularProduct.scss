@@ -1,0 +1,25 @@
+@import '../../sass/variables';
+
+.product {
+    margin: $margin-4 auto; 
+    .product__info {
+        padding: $padding-2;
+        box-shadow: $color-rgb-black 0px 3px 8px;
+        width: 100%;
+        text-align: center;
+        .product__pic img {
+            width: 230px;
+            height: 200px;
+            display: inline-block;
+        }    
+        .product___detail h4 {
+            color: $color-dark-blue-1
+        }
+        .product___detail h6{
+            color: $color-dark-blue-2
+        }
+    }
+    
+} 
+
+
