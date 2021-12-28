@@ -82,9 +82,7 @@ export default function PopularProduct() {
       <Container>
         <section className="product">
         <h2>Popular Products</h2>
-            {/* <div className="row">
-                {renderPopularProduct()}
-            </div> */}
+            
              <div>
         <Slider {...settings}>
           {renderPopularProduct()}

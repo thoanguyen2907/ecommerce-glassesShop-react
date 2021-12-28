@@ -158,7 +158,8 @@ export type ThemeState = {
 export type ValueSearch = {
   brand: String,
   color: String, 
-  price: String
+  price: String,
+  category: String
 }
 
 export type GetProductAction = {

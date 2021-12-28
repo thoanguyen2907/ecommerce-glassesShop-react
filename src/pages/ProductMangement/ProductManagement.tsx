@@ -22,7 +22,8 @@ export default function ProductManagement() {
   const valueSearch: ValueSearch = {
     brand: '',
     color: '',
-    price: ''
+    price: '', 
+    category: ''
   }
   const getProduct = async () =>  {
     dispatch({
