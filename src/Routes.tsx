@@ -28,6 +28,8 @@ import SuccessPayment from './pages/SuccessPayment/SuccessPayment'
 import CancelPayment from './pages/CancelPayment/CancelPayment'
 import GoogleLoginDemo from './pages/GoogleLogin/GoogleLoginDemo'
 import GlassesTrialRoom from './pages/GlassesTrialRoom/GlassesTrialRoom'
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword'
+import ResetPassword from './pages/ResetPassword/ResetPassword'
 
 const Routes = () => (
     <Router history={history}>
@@ -46,6 +48,11 @@ const Routes = () => (
     <LoginTemplate exact path="/login/user" Component={LoginUser} />
     <LoginTemplate exact path="/signup/user" Component={SignUpUser} />
     <LoginTemplate exact path="/google-login" Component={GoogleLoginDemo} />
+
+    <LoginTemplate exact path="/forgotPassword" Component={ForgotPassword} />
+
+    <LoginTemplate exact path="/resetPassword/:tokenId" Component={ResetPassword} />
+
     <HeaderFooterTemplate exact path="/homepage" Component={HomePage} />
     <HeaderFooterTemplate exact path="/productlist" Component={ProductItemList} />
     <HeaderFooterTemplate exact path="/orders" Component={Order} />

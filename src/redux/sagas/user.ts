@@ -1,4 +1,4 @@
-import { DISPLAY_LOADING, GET_USER_DATA_BY_ID, HIDE_LOADING, UserLoginGoogleAction } from './../../types';
+import { DISPLAY_LOADING, GET_USER_DATA_BY_ID, HIDE_LOADING, UserForgotPasswordAction, UserLoginGoogleAction } from './../../types';
 import { userService } from './../../APIService/UserService';
 import { STATUSCODE } from './../../utils/constants/settingSystem'
 import { delay, select, takeLatest } from 'redux-saga/effects'
@@ -60,6 +60,36 @@ function* userLoginSaga(action: UserLoginAction): any {
 export function* trackingUserLoginSaga() {
   yield takeLatest('USER_LOGIN_SAGA', userLoginSaga)
 }
+
+function* userForgotPasswordSaga(action: UserForgotPasswordAction): any {
+  console.log(action.payload)
+  const {email} = action.payload
+  try {
+    const { data } = yield call(() => authUserService.forgotPassword({email}))
+    console.log(data)
+
+    //DATA GET FROM API
+      // yield put({
+      //   type: GET_USER_TOKEN_LOGIN,
+      //   payload: {
+      //     token: data.token,
+      //     userData: data.userFound
+      //   },
+      // })
+    //   const state = yield select()
+    //   yield localStorage.setItem('state', JSON.stringify(state))
+    //   localStorage.setItem('token', data.token)
+      
+    // history.push('/homepage')
+
+  } catch (err) {
+    console.log(err)
+  }
+}
+export function* trackingUserForgotPasswordSaga() {
+  yield takeLatest('USER_FORGOT_PASSWORD_SAGA', userForgotPasswordSaga)
+}
+
 
 function* userLoginGoogleSaga(action: UserLoginGoogleAction): any {
   const {tokenId} = action.payload
