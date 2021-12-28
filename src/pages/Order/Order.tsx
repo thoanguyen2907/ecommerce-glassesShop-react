@@ -18,10 +18,13 @@ export default function Order() {
     
     const userData = userDataLogin
     const userId = userData.id
+    let productOrderByUser = []
+    if(orderListByUserId.length > 0) {
+       productOrderByUser = orderListByUserId?.map((item: any, index: any) => {
+        return item.products
+      })
+    }
     
-    const productOrderByUser = orderListByUserId?.map((item: any, index: any) => {
-      return item.products
-    })
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -32,14 +35,14 @@ export default function Order() {
        }
      })
     }, [])
-    if (!localStorage.getItem('token')) {
-      Swal.fire({
-      title: '<Login></Login>!',
-      text: 'Please Login',
-    })
+  //   if (!localStorage.getItem('token')) {
+  //     Swal.fire({
+  //     title: '<Login></Login>!',
+  //     text: 'Please Login',
+  //   })
    
-      return <Redirect to='/login/user' />
-  }
+  //     return <Redirect to='/login/user' />
+  // }
 
 
     const columns = [
@@ -158,9 +161,10 @@ export default function Order() {
 
 
     return (
-        <Container>
-  
-            <Table columns={columns} dataSource={orderListByUserId} />
+      <Container>
+         {orderListByUserId.length > 0 ? 
+         <div>
+         <Table columns={columns} dataSource={orderListByUserId} />
             <div className="row">
               <div className="col-7"></div>
               <div className="col-2">
@@ -171,9 +175,11 @@ export default function Order() {
                  return total += item.quantity * item.product.price
                 }, 0)} </h6>
               </div>
-          
           </div>
+          </div>: <div className="row"> <h3> No order list</h3></div>
+         }
             
-        </Container>
+            </Container>
+  
     )
 }

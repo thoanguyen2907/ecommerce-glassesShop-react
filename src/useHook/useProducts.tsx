@@ -9,7 +9,7 @@ export default function useProducts(valueSearch: any | null): [Error | null,Prod
     const dispatch = useDispatch()
     console.log(valueSearch)
     let filteredData: Product[] = [];
-    const {brand, color, price} = valueSearch;
+    const {brand, color, price, category} = valueSearch;
 
     const getProduct = async () =>  {
          dispatch({

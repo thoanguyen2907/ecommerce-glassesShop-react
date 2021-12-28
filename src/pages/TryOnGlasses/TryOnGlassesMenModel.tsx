@@ -15,7 +15,8 @@ export default function TryOnGlassesMenModel() {
     const valueSearch: ValueSearch = {
       brand: '',
       color: '',
-      price: ''
+      price: '',
+      category: ''
     }
   
     const getProduct = async () =>  {

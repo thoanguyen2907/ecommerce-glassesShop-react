@@ -32,6 +32,7 @@ function* getListProductSaga(action: GetProductAction) {
   if(valueSearch.brand !== '') url+= '&brand=' + valueSearch.brand
   if(valueSearch.color !== '') url+= '&color[in]=' + valueSearch.color
   if(valueSearch.price !== '') url+= '&price[gte]=' + valueSearch.price
+  if(valueSearch.category !== '') url+= '&category=' + valueSearch.category
  
   try {
     const { data, status } = yield call(() => productService.getAllProduct(url))
@@ -72,7 +73,8 @@ function* deleteProductSaga(action: RemoveProductAction) {
         valueSearch: {
           brand: '',
           color: '',
-          price: ''
+          price: '', 
+          category: ''
         }
       }
     })
@@ -102,7 +104,8 @@ function* updateProductSaga(action: EditProductAction) {
         valueSearch: {
           brand: '',
           color: '',
-          price: ''
+          price: '',
+          category: ''
         }
     }})
     yield delay(1200)
@@ -136,7 +139,8 @@ function* createProductSaga(action: CreateNewProductAction) {
         valueSearch: {
           brand: '',
           color: '',
-          price: ''
+          price: '',
+          category: ''
         }
     }})
     yield delay(1200)

@@ -2,12 +2,14 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import { Radio } from 'antd';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, Redirect, useParams } from 'react-router-dom';
 import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart';
 import { ButtonNormal } from '../../StyledElements/Button/Button';
 import { Container } from '../../StyledElements/Container/Container';
 import { useFormik } from 'formik'
 import './ProductDetail.scss'
+import Swal from 'sweetalert2';
+import { history } from '../../utils/history/history';
 export default function ProductDetail() {
     const  {productId}: any = useParams()
     const {productDetail} = useSelector((state: any) => state.product)
@@ -34,6 +36,7 @@ export default function ProductDetail() {
         },
 
         onSubmit: async (values) => {
+            console.log(values);
             if(userId !== '') {
                          dispatch({
                     type: "ADD_ORDER_SAGA",
@@ -46,13 +49,12 @@ export default function ProductDetail() {
                         }
                            }  })
             } else {
-          
-                dispatch({
-                    type: 'ADD_PRODUCT_NO_LOGIN_SAGA',
-                    payload: {
-                      cart: productDetail
-                    }
+                await Swal.fire({
+                    title: 'Not Login',
+                    text: 'Please login to purchase product!!',
                   })
+                 await history.push('/login/user')
+               
             }
             
 

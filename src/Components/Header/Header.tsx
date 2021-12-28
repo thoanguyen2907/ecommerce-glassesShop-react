@@ -10,7 +10,7 @@ import { Li } from '../../StyledElements/Li/Li';
 
 export default function Header() { 
   const {userDataLogin} = useSelector((state: any) => state.userLogin)
-  const {orderListByUserId} = useSelector((state: any) => state.order)
+  const {orderListByUserId} = useSelector((state: any) => state?.order)
   const {cartList} = useSelector((state: any) => state.order)
   const userData = {...userDataLogin}
   const userId = userData?.id
@@ -64,40 +64,15 @@ export default function Header() {
     
   </ul>
        
-      {userId !== '' ?  <ul className="navbar-nav navBar__left">   <li className="nav-item myNavBar__cart">
+     <ul className="navbar-nav navBar__left">   <li className="nav-item myNavBar__cart">
     <NavLink className="nav-link cart-link" to = "/orders"><i className="fa
                                   fa-shopping-cart" />
                                  <span className="badge badge-warning" id="lblCartCount">
                   {orderNumber}
                 </span>
                                   </NavLink>
-  </li> </ul>
-  
-  : <ul className="navbar-nav navBar__left">  <Li className="nav-item myNavBar__cart">
-  <NavLink className="nav-link cart-link" to = "/orders/nologin"><i className="fa
-                                fa-shopping-cart" />
-                               <span className="badge badge-warning" id="lblCartCount">
-                {orderNumberNoLogin}
-              </span>
-                                </NavLink>
-</Li>
-  <Li className="nav-item myNavBar__button">
-  <NavLink to = '/login/user'><button className="button button--white">Log In
-  </button></NavLink> 
-</Li> 
-<Li className="nav-item myNavBar__button">
-  <NavLink to = '/signup/user'> <button className="button button--blue">Sign Up</button></NavLink>
-</Li>
+  </li> 
   </ul>
-  }
- 
-  
- 
-     
- 
-
-
-
      <div>
 </div>
 
