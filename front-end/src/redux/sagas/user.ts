@@ -14,6 +14,7 @@ import {
 } from '../../types'
 import { authUserService } from '../../APIService/AuthUserService';
 import { history } from '../../utils/history/history';
+import { openNotification } from '../../utils/notification/notification';
 
 function* getListUserSaga(action: GetUserAction) {
   try {
@@ -38,19 +39,21 @@ function* userLoginSaga(action: UserLoginAction): any {
   const {email, password} = action.payload
   try {
     const { data } = yield call(() => authUserService.loginUser({email, password}))
-    console.log(data)
+    console.log('data' , data)
     //DATA GET FROM API
-      yield put({
-        type: GET_USER_TOKEN_LOGIN,
-        payload: {
-          token: data.token,
-          userData: data.userFound
-        },
-      })
-      const state = yield select()
-      yield localStorage.setItem('state', JSON.stringify(state))
-      localStorage.setItem('token', data.token)
-      
+      if(data.success) {
+        openNotification('Login Success', 'Hello! Welcome to our website')
+        yield put({
+          type: GET_USER_TOKEN_LOGIN,
+          payload: {
+            token: data.token,
+            userData: data.userFound
+          },
+        })
+        const state = yield select()
+        yield localStorage.setItem('state', JSON.stringify(state))
+        localStorage.setItem('token', data.token)
+      }
     history.push('/homepage')
 
   } catch (err) {
@@ -67,20 +70,9 @@ function* userForgotPasswordSaga(action: UserForgotPasswordAction): any {
   try {
     const { data } = yield call(() => authUserService.forgotPassword({email}))
     console.log(data)
-
-    //DATA GET FROM API
-      // yield put({
-      //   type: GET_USER_TOKEN_LOGIN,
-      //   payload: {
-      //     token: data.token,
-      //     userData: data.userFound
-      //   },
-      // })
-    //   const state = yield select()
-    //   yield localStorage.setItem('state', JSON.stringify(state))
-    //   localStorage.setItem('token', data.token)
-      
-    // history.push('/homepage')
+    if(data.success) {
+      openNotification('Success', 'Check your email, please ')
+    }  
 
   } catch (err) {
     console.log(err)
@@ -97,7 +89,6 @@ function* userLoginGoogleSaga(action: UserLoginGoogleAction): any {
   try {
   
      const { data } = yield call(() => authUserService.loginGoogleUser({tokenId}))
-     console.log(data)
     //DATA GET FROM API
       yield put({
         type: GET_USER_TOKEN_LOGIN,
@@ -126,6 +117,9 @@ function* userSignUpSaga(action: UserSignUpAction) {
   const {lastName, firstName, email, phone, password } = action.payload
   try {
     const { data } = yield call(() => authUserService.signUpUser({lastName, firstName, email, phone, password}) )
+    if(data.success) {
+      openNotification('Success Signup', 'Signup Successfully! Please log in ')
+    } 
     history.push('/login/user')
     
   } catch (err) {
