@@ -4,11 +4,13 @@ import { Table, Tag, Space , Button} from 'antd';
 import {
     DeleteOutlined, EditOutlined, MinusCircleOutlined, PlusCircleOutlined, SearchOutlined
   } from '@ant-design/icons';
-import { Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
+import Payment from '../Payment/Payment';
 import Swal from 'sweetalert2'
 
 import { Container } from '../../StyledElements/Container/Container';
 import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart';
+import { ButtonNormal } from '../../StyledElements/Button/Button';
   
 export default function Order() {
 
@@ -175,7 +177,15 @@ export default function Order() {
                  return total += item.quantity * item.product.price
                 }, 0)} </h6>
               </div>
+             
           </div>
+          <div className="row">
+              <div className="col-10"></div>
+              <div className="col-2">
+              <NavLink to = "/payment"> <Payment/> </NavLink>
+              </div>
+            </div>
+         
           </div>: <div className="row"> <h3> No order list</h3></div>
          }
             

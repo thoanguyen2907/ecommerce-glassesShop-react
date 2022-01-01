@@ -2,9 +2,14 @@
 
 .product_detail_page{
     position: relative;
-    width: 100%;
+  
     .product_detail_page_photo {
+        width: 100%;
         text-align: center;
+        img {
+            width: 400px;
+        height: 340px;
+        }
     }
     .btn-back{
         z-index: 10;
