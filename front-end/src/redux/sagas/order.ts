@@ -14,6 +14,7 @@ import {
   IncreaseOrderAction,
 } from '../../types'
 import { orderService } from '../../APIService/OrderService'
+import { openNotification } from '../../utils/notification/notification';
 
 function* getListOrderSaga(action: GetOrderAction) {
   try {
@@ -76,9 +77,7 @@ export function* trackingDecreaseQuantitySaga() {
 }
 
 function* getOrdersByUserIdSaga(action: GetOrderDataByUserId): any {
-  yield put({
-    type: DISPLAY_LOADING
-})
+  
   const {userId} = action.payload
   try {
     const { data, status } = yield call(() => orderService.getOrdersByUserId(userId))
@@ -92,14 +91,12 @@ function* getOrdersByUserIdSaga(action: GetOrderDataByUserId): any {
     })
     const state = yield select()
   yield localStorage.setItem('state', JSON.stringify(state))
-    yield delay(1200)
+   
 
   } catch (err) {
     console.log(err)
   }
-  yield put({
-    type: HIDE_LOADING
-})
+ 
 }
 export function* trackingGetOrdersByUserIdSaga() {
   yield takeLatest('GET_ORDERS_BY_USERID_SAGA', getOrdersByUserIdSaga)
@@ -108,7 +105,8 @@ export function* trackingGetOrdersByUserIdSaga() {
 function* deleteOrderSagaByUserOrderId(action: DeleteOrderAction) {
   const {orderId, userId} = action.payload
   try {
-    const { data, status } = yield call(() => orderService.deleteOrderById(orderId))
+    const { data, status } = yield call(() => orderService.deleteOrderById(orderId));
+    openNotification('Delete Successfully', 'Delete Order Successfully !!');
     //DATA GET FROM API
     yield put({
       type: "GET_ORDERS_BY_USERID_SAGA",
@@ -127,10 +125,10 @@ export function* trackingDeleteOrderSagaByUserOrderId() {
 
 function* addOrderSaga(action: AddOrderAction) {
   const {products, user} = action.payload
-  console.log(action.payload)
+  
   try {
     const { data, status } = yield call(() => orderService.addOrder({user, products}))
-    console.log(data)
+    openNotification('Successfully', 'Add Order Successfully !!');
     //DATA GET FROM API
     yield put({
       type: "GET_ORDERS_BY_USERID_SAGA",
@@ -151,7 +149,7 @@ function* deleteOrderSaga(action: RemoveOrderAction) {
 
   try {
     const { data, status } = yield call(() => orderService.deleteOrder(orderId))
-
+    openNotification('Successfully', 'Delete Order Successfully !!');
     //DATA GET FROM API
     yield put({
       type: "GET_ORDER_LIST_SAGA",

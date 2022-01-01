@@ -7,6 +7,7 @@ import _ from 'lodash';
 import { NavLink } from 'react-router-dom';
 import { Container } from '../../StyledElements/Container/Container';
 import { Li } from '../../StyledElements/Li/Li';
+import { history } from '../../utils/history/history';
 
 export default function Header() { 
   const {userDataLogin} = useSelector((state: any) => state.userLogin)
@@ -14,12 +15,8 @@ export default function Header() {
   const {cartList} = useSelector((state: any) => state.order)
   const userData = {...userDataLogin}
   const userId = userData?.id
-  console.log({userDataLogin})
-  console.log({userId})
   const orderNumber = orderListByUserId?.length
-  const orderNumberNoLogin = cartList?.length
-
-  console.log({userDataLogin});
+ 
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -64,15 +61,43 @@ export default function Header() {
     
   </ul>
        
-     <ul className="navbar-nav navBar__left">   <li className="nav-item myNavBar__cart">
+     
+  {userId === '' ? <ul className="navbar-nav navBar__left">  
+      <li className="nav-item myNavBar__cart">
     <NavLink className="nav-link cart-link" to = "/orders"><i className="fa
                                   fa-shopping-cart" />
                                  <span className="badge badge-warning" id="lblCartCount">
                   {orderNumber}
                 </span>
-                                  </NavLink>
+      </NavLink>
   </li> 
-  </ul>
+
+  <li>
+  <NavLink to = "/login/user"><button className = "button--white">Login</button></NavLink></li>
+    
+  <li> 
+    <NavLink to = "/signup/user"><button className = "button--blue"> Sign up</button> </NavLink>
+    </li>  </ul>: <ul className="navbar-nav navBar__left">  
+      <li className="nav-item myNavBar__cart">
+    <NavLink className="nav-link cart-link" to = "/orders"><i className="fa
+                                  fa-shopping-cart" />
+                                 <span className="badge badge-warning" id="lblCartCount">
+                  {orderNumber}
+                </span>
+      </NavLink>
+  </li>   
+  <li> 
+    <button className = "button--blue" onClick = {
+      () => {
+        localStorage.removeItem('state')
+        localStorage.removeItem('token')
+        window.location.reload();
+      }
+    }> Log out</button> 
+    </li> 
+  </ul> }
+ 
+ 
      <div>
 </div>
 

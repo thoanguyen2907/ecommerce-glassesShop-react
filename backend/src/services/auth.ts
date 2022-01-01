@@ -29,6 +29,7 @@ export const forgotPassword =  async (item: any) => {
       const resetToken = await user.resetPassword()
 
       await user.save()
+     
       console.log(user) 
       //create reset URL 
       const resetURL = `http://localhost:3000/resetPassword/${resetToken}`
