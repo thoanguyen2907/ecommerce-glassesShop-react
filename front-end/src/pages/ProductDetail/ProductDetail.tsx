@@ -110,7 +110,7 @@ export default function ProductDetail() {
            </div>
        </div>
     }
-    console.log('productDetail', productDetail);
+ 
     return (
         <Container>
             <div className="product_detail_page">

@@ -209,7 +209,7 @@ function* getProductDetailSaga(action: GetProductDetailAction) {
 
   try {
     const { data, status } = yield call(() => productService.getProductDetail(productId))
-     console.log(data)
+  
     yield delay(1200)
     //DATA GET FROM API
     if (status === STATUSCODE.SUCCESS) {

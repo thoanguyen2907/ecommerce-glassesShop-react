@@ -14,11 +14,11 @@ import { ButtonWhite } from '../../StyledElements/ButtonWhite/ButtonWhite';
 export default function Header() { 
   const {userDataLogin} = useSelector((state: any) => state.userLogin)
   const {orderListByUserId} = useSelector((state: any) => state?.order)
-  const {cartList} = useSelector((state: any) => state.order)
+
   const userData = {...userDataLogin}
   const userId = userData?.id
   const orderNumber = orderListByUserId?.length
- 
+ console.log('orderListByUserId', orderListByUserId);
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function Header() {
   <NavLink to = "/login/user"><ButtonWhite >Login</ButtonWhite></NavLink></li>
     
   <li> 
-    <NavLink to = "/signup/user"><ButtonBlue className = "button--blue"> Sign up</ButtonBlue> </NavLink>
+    <NavLink to = "/signup/user"><ButtonBlue> Sign up</ButtonBlue> </NavLink>
     </li>  </ul>: <ul className="navbar-nav navBar__left">  
       <li className="nav-item myNavBar__cart">
     <NavLink className="nav-link cart-link" to = "/orders"><i className="fa

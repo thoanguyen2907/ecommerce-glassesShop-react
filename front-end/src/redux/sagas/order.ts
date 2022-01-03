@@ -86,7 +86,7 @@ function* getOrdersByUserIdSaga(action: GetOrderDataByUserId): any {
     yield put({
       type: GET_ORDERS_BY_USER_REDUCER,
       payload: {
-          orderListByUserId: data,
+          orderListByUserId: data.data,
       },
     })
     const state = yield select()
