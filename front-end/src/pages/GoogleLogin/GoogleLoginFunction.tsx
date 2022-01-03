@@ -3,7 +3,7 @@ import GoogleLogin from 'react-google-login'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { GET_USER_TOKEN_LOGIN } from '../../types'
-export default function GoogleLoginDemo() {
+export default function GoogleLoginFunction() {
 const dispatch = useDispatch()
 const responseGoogle = async (response: any) => {
 
@@ -35,7 +35,7 @@ const responseGoogle = async (response: any) => {
         <div>
              <GoogleLogin
     clientId='627197289438-q9pagstkv3sk03pbssfisjqgrgidv7lo.apps.googleusercontent.com'
-    buttonText="Login"
+    buttonText="Login Google"
     onSuccess={responseGoogle}
     onFailure={responseGoogle}
     cookiePolicy={'single_host_origin'}

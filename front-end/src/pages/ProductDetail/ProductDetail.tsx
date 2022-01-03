@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Redirect, useParams } from 'react-router-dom';
 import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart';
-import { ButtonNormal } from '../../StyledElements/Button/Button';
+import { ButtonBlue } from '../../StyledElements/Button/Button';
 import { Container } from '../../StyledElements/Container/Container';
 import { useFormik } from 'formik'
 import './ProductDetail.scss'
@@ -111,7 +111,7 @@ export default function ProductDetail() {
         <Container>
             <div className="product_detail_page">
           <NavLink to = "/productlist">
-          <ButtonNormal className="btn-back">Back</ButtonNormal>
+          <ButtonBlue className="btn-back">Back</ButtonBlue>
           </NavLink>
                 {renderProductDetail()}
             </div>

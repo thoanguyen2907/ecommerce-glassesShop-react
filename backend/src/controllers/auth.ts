@@ -9,6 +9,7 @@ import validation from '../validates/products'
 import crypto from 'crypto'
 import { sendEmail } from '../util/sendEmail'
 import {OAuth2Client} from 'google-auth-library'
+import { JWT_SECRET } from '../util/secrets'
 
 interface JwtPayload {
   id: string
@@ -125,7 +126,7 @@ export const loginUser = async (
   try {
     const { email, password } = await req.body
     const token = await AuthService.login(email, password, res)
-    const {id} =  jwt.verify(token, 'abc') as JwtPayload
+    const {id} =  jwt.verify(token, JWT_SECRET) as JwtPayload
     const userFound = await User.findById(id)
 
     if(token) {
@@ -160,7 +161,7 @@ export const loginGoogle = async (
           // console.log('user', user)
             if(user) { 
              req.user  = user
-             const token = await jwt.sign({ id: user._id }, 'abc', {
+             const token = await jwt.sign({ id: user._id }, JWT_SECRET, {
             expiresIn: '2h',
       })
       const { _id, email, lastName , id} = user
@@ -179,7 +180,7 @@ export const loginGoogle = async (
               // console.log('newUser', newUser)
              newUser.save((err, data) => {
                console.log('data', data)
-                const token = jwt.sign({ id: data._id }, 'abc', {
+                const token = jwt.sign({ id: data._id }, JWT_SECRET, {
                       expiresIn: '2h',
                     })
                 const {_id, lastName, email, id} = newUser

@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
 
 import { Container } from '../../StyledElements/Container/Container';
 import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart';
-import { ButtonNormal } from '../../StyledElements/Button/Button';
+import { ButtonBlue } from '../../StyledElements/Button/Button';
   
 export default function Order() {
 

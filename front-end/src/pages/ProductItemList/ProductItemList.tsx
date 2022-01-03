@@ -133,7 +133,6 @@ useEffect(() => {
 <Option value="">All</Option>   
 <Option value="61ad29c4520b1921c2c33fb6">Sunglasses for men</Option>
 <Option value="61ad29d4520b1921c2c33fb8">Sunglasses for women</Option>    
-<Option value="61ad29e1520b1921c2c33fba">Sunglasses for children</Option>
 </Select>                          
               </Form.Item>              
           </div>

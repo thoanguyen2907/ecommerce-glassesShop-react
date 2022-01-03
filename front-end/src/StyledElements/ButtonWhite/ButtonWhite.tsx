@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 //----------------button-------------------
-export const ButtonBlue = styled.button`
-    background-color: #5584AC;
+export const ButtonWhite = styled.button`
+    background-color: #fff;
     padding: 5px 10px;
-    color: #fff;
+    color: #5584AC;
     font-weight: bold; 
     font-size: 18px;
     border: none;
@@ -12,8 +12,8 @@ export const ButtonBlue = styled.button`
   font-size: 17px;
   cursor: pointer;
   &:hover {
-    color: #fff;
-    background-color: #22577E;
+    color: #22577E;
+    background-color: #fff;
   }
   &:disabled {
     cursor: no-drop;

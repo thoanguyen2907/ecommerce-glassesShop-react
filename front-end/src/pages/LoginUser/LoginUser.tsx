@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Container } from '../../StyledElements/Container/Container';
 import * as Yup from 'yup'
 import { NavLink } from 'react-router-dom';
+import GoogleLoginFunction from '../GoogleLogin/GoogleLoginFunction';
 
 export default function LoginUser(props: any) {
     const dispatch = useDispatch()
@@ -51,11 +52,13 @@ export default function LoginUser(props: any) {
                           <p className='text-danger'> {errors.password ? errors.password : ''}</p>
                         <Button htmlType="submit" type="primary" className="my-3">Login</Button>
                         <Button className="mx-2"><NavLink to = '/forgotPassword'> Forgot Password</NavLink></Button>
+                        <GoogleLoginFunction/>
                     </div>
                 </div>
             </div>
+
         </form>
-        
+
         </Container>
     )
 }
