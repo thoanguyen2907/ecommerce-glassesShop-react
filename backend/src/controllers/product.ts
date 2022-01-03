@@ -18,8 +18,7 @@ export const createProduct = async (
       const result = await validationResult(req)
       if (!result.isEmpty()) {
         const errors = result.array()
-        const messages = await validation.showErrors(errors)    
-       
+        const messages = await validation.showErrors(errors)          
         res.status(400).json({
             success : false,
             data : messages

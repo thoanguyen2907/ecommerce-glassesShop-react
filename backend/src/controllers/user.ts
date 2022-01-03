@@ -107,7 +107,6 @@ export const findById = async (
       role: userData.role,
       orders: userData.orders
     } 
-    console.log(data)
     res.status(200).json({
       success: true,
       data
