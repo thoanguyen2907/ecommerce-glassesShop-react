@@ -138,13 +138,13 @@ function* getUserDataByIdSaga(action: GetUserByIdAction): any {
 
   try {
     const { data } = yield call(() => userService.getUserById(userId) )
-    console.log(data)
+    
     yield delay(1200)
   
     yield put({
       type: GET_USER_DATA_BY_ID,
       payload: {
-        userDataById: data
+        userDataById: data.data
       },
     })
   } catch (err) {

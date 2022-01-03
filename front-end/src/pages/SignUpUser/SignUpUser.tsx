@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { UserOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons';
 import * as Yup from 'yup'
+import GoogleLoginFunction from '../GoogleLogin/GoogleLoginFunction';
 
 export default function SignUpUser() {
     const dispatch = useDispatch()
@@ -62,8 +63,9 @@ export default function SignUpUser() {
        
          <Button htmlType="submit" type="primary" className="my-3">Sign up</Button>
          </div>
-
+         <GoogleLoginFunction/>
     </form>
+
     </div>
     )
 }

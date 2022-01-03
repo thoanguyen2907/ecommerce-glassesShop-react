@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
-import { ButtonNormal } from '../../StyledElements/Button/Button';
+import { ButtonBlue } from '../../StyledElements/Button/Button';
 import { Redirect } from 'react-router-dom';
 import { history } from '../../utils/history/history';
 import { useSelector } from 'react-redux';
@@ -65,7 +65,7 @@ console.log(ordersList)
     return (
         <div>
             
-        <ButtonNormal onClick = {checkOut}>Check out</ButtonNormal>
+        <ButtonBlue onClick = {checkOut}>Check out</ButtonBlue>
         </div>
     )
 }

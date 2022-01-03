@@ -8,15 +8,17 @@ import { NavLink } from 'react-router-dom';
 import { Container } from '../../StyledElements/Container/Container';
 import { Li } from '../../StyledElements/Li/Li';
 import { history } from '../../utils/history/history';
+import { ButtonBlue } from '../../StyledElements/Button/Button';
+import { ButtonWhite } from '../../StyledElements/ButtonWhite/ButtonWhite';
 
 export default function Header() { 
   const {userDataLogin} = useSelector((state: any) => state.userLogin)
   const {orderListByUserId} = useSelector((state: any) => state?.order)
-  const {cartList} = useSelector((state: any) => state.order)
+
   const userData = {...userDataLogin}
   const userId = userData?.id
   const orderNumber = orderListByUserId?.length
- 
+ console.log('orderListByUserId', orderListByUserId);
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -73,10 +75,10 @@ export default function Header() {
   </li> 
 
   <li>
-  <NavLink to = "/login/user"><button className = "button--white">Login</button></NavLink></li>
+  <NavLink to = "/login/user"><ButtonWhite >Login</ButtonWhite></NavLink></li>
     
   <li> 
-    <NavLink to = "/signup/user"><button className = "button--blue"> Sign up</button> </NavLink>
+    <NavLink to = "/signup/user"><ButtonBlue> Sign up</ButtonBlue> </NavLink>
     </li>  </ul>: <ul className="navbar-nav navBar__left">  
       <li className="nav-item myNavBar__cart">
     <NavLink className="nav-link cart-link" to = "/orders"><i className="fa
@@ -85,15 +87,15 @@ export default function Header() {
                   {orderNumber}
                 </span>
       </NavLink>
-  </li>   
+  </li>  
   <li> 
-    <button className = "button--blue" onClick = {
+    <ButtonBlue onClick = {
       () => {
         localStorage.removeItem('state')
         localStorage.removeItem('token')
         window.location.reload();
       }
-    }> Log out</button> 
+    }> Log out</ButtonBlue> 
     </li> 
   </ul> }
  
