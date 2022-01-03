@@ -23,11 +23,9 @@ import {
 } from '../../types'
 
 function* getListProductSaga(action: GetProductAction) {
-  yield put({
-    type: DISPLAY_LOADING
-})
+  console.log(action.payload)
   const {valueSearch}  = action.payload;
-
+  console.log(valueSearch)
   let url = '?'
   if(valueSearch.brand !== '') url+= '&brand=' + valueSearch.brand
   if(valueSearch.color !== '') url+= '&color[in]=' + valueSearch.color
@@ -36,23 +34,20 @@ function* getListProductSaga(action: GetProductAction) {
  
   try {
     const { data, status } = yield call(() => productService.getAllProduct(url))
-
-    yield delay(1200)
+console.log(data)
+ 
     //DATA GET FROM API
-    if (status === STATUSCODE.SUCCESS) {
       yield put({
         type: GET_PRODUCT,
         payload: {
           productList: data.data,
         },
       })
-    }
+  
   } catch (err) {
     console.log(err)
   }
-  yield put({
-    type: HIDE_LOADING
-})
+
 }
 export function* trackingGetListProductSaga() {
   yield takeLatest('GET_PRODUCT_LIST_SAGA', getListProductSaga)

@@ -11,13 +11,19 @@ import './ProductDetail.scss'
 import Swal from 'sweetalert2';
 import * as Yup from 'yup'
 import { history } from '../../utils/history/history';
+import ProductByCategory from '../ProductByCategory/ProductByCategory'
+
 export default function ProductDetail() {
     const  {productId}: any = useParams()
     const {productDetail} = useSelector((state: any) => state.product)
     const {userDataLogin} = useSelector((state: any) => state.userLogin)
     const userData = userDataLogin
     const userId = userData?.id
+    const category = {
+        category: productDetail?.category
+    } 
 
+    console.log('productDetail', productDetail)
     const dispatch = useDispatch()
     const  validationSchema =  Yup.object().shape({
         color: Yup.string().required('Please choose a color'),
@@ -110,7 +116,7 @@ export default function ProductDetail() {
            </div>
        </div>
     }
- 
+  
     return (
         <Container>
             <div className="product_detail_page">
@@ -119,7 +125,9 @@ export default function ProductDetail() {
           </NavLink>
                 {renderProductDetail()}
             </div>
-           
+           <div className="">
+               <ProductByCategory {...category}/>
+           </div>
    
         </Container>
        

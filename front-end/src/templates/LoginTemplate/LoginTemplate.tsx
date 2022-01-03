@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {Route} from 'react-router-dom';
 import { Layout } from 'antd';
+import '../../sass/_reset.scss'
+
 const {  Sider, Content } = Layout;
 
 export default function LoginTemplate(props: any) {

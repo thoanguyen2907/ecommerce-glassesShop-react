@@ -21,8 +21,7 @@ export default function LoginUser(props: any) {
             password: "123123"
         },
         validationSchema,
-        onSubmit: async (values) => {
-          
+        onSubmit: async (values) => {   
           dispatch({
               type: "USER_LOGIN_SAGA", 
               payload: {
@@ -31,9 +30,7 @@ export default function LoginUser(props: any) {
               }
           })
     }
-}
-    )
-
+})
     return (
         <Container>
         <form onSubmit = {handleSubmit}>

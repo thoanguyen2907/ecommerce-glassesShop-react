@@ -7,10 +7,9 @@ export default function useProducts(valueSearch: any | null): [Error | null,Prod
     const [productFilterList, setProductFilterList] = useState <Product[]> ([]);
     const [error, setError] = useState<any>(null);
     const dispatch = useDispatch()
-    console.log(valueSearch)
     let filteredData: Product[] = [];
     const {brand, color, price, category} = valueSearch;
-
+    
     const getProduct = async () =>  {
          dispatch({
           type: "GET_PRODUCT_LIST_SAGA",
