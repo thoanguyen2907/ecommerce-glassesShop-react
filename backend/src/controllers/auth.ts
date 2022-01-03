@@ -9,12 +9,12 @@ import validation from '../validates/products'
 import crypto from 'crypto'
 import { sendEmail } from '../util/sendEmail'
 import {OAuth2Client} from 'google-auth-library'
-import { JWT_SECRET } from '../util/secrets'
+import { JWT_SECRET, OAuth2ClientId } from '../util/secrets'
 
 interface JwtPayload {
   id: string
 }
-const client = new OAuth2Client('627197289438-q9pagstkv3sk03pbssfisjqgrgidv7lo.apps.googleusercontent.com')
+const client = new OAuth2Client(OAuth2ClientId)
 
 const saveCookieResponse = (res: any, statusCode: any, token: any) => {
   const options = {
@@ -51,12 +51,12 @@ export const registerAdmin = async (
       })
   
       const newUser = await AuthService.register(user)
-      console.log(newUser)
       const token = await newUser.getJwtToken()
       if (token) {
         saveCookieResponse(res, 201, token)
       }
-      res.status(201).send({
+      res.status(201).json({
+        success: true,
         newUser,
         token
       })
@@ -104,7 +104,8 @@ export const registerUser = async (
       if (token) {
         saveCookieResponse(res, 201, token)
       }
-      res.status(201).send({
+      res.status(201).json({
+        success: true,
         newUser,
         token
       })
@@ -137,8 +138,6 @@ export const loginUser = async (
         token,
         userFound
       })
-  
-  
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -175,11 +174,11 @@ export const loginGoogle = async (
              const password = email+ 'ahcdada'
              
              const userGoogleLogin = await new User({firstName: 'Google login',lastName: name, email, password, role: 'user'})
-             console.log('userGoogleLogin', userGoogleLogin)
+           
              const newUser = await AuthService.register(userGoogleLogin)
               // console.log('newUser', newUser)
              newUser.save((err, data) => {
-               console.log('data', data)
+               
                 const token = jwt.sign({ id: data._id }, JWT_SECRET, {
                       expiresIn: '2h',
                     })
@@ -238,7 +237,7 @@ export const forgotPasswordUser =  async (
     const result = await AuthService.forgotPassword(req.body)
     if(!result) {
         res.status(401).json({
-            success: true,
+            success: false,
             messages: 'Email is not exists'
         })
     } else {
@@ -246,10 +245,8 @@ export const forgotPasswordUser =  async (
             success: true,
             data: result
         })
-    }
-      
+    }      
 }
-
 export const resetPasswordUser = async ( 
   req: Request,
   res: Response,
@@ -260,7 +257,7 @@ export const resetPasswordUser = async (
     })
     if(!result) {
         res.status(401).json({
-            success: true,
+            success: false,
             messages: 'The reset token is not available'
         })
     } else {

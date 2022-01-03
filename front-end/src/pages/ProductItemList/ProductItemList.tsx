@@ -33,9 +33,6 @@ export default function ProductItemList() {
 })
 const [error, productList] = useProducts(values)
 
-console.log('productList', productList);
-console.log('categoryList', categoryList);
-
 const { Option } = Select;
  
 const onBrandChange = (value: string) => {
