@@ -12,6 +12,13 @@ export default function TryOnGlassesMenModel() {
       display: true,
       chosenGlasses: 'https://i.postimg.cc/nrCpmMzK/v9.png'
     })
+    const [productChosen, setProductChosen] = useState({
+      display: false, 
+      description: '',
+      name: '',
+      price: '',
+      brand: ''
+    })
     const valueSearch: ValueSearch = {
       brand: '',
       color: '',
@@ -36,7 +43,12 @@ export default function TryOnGlassesMenModel() {
     return productList.map((item: any, index: any) => {
       return   <div className="col-4 d-flex align-items-center" key = {index}>
          <img src={item.virtualImg} onClick = {() => {
-             console.log(item.virtualImg)
+             setProductChosen({...productChosen, 
+              brand: item.brand,
+              price: item.price,
+              description: item.description,
+              name: item.name,
+              display: true})
            setGlasses({...glasses, chosenGlasses: item.virtualImg})
 
          }} key ={index} alt= {item.virtualImg} className='img-fluid vglasses__items my-3'  />
@@ -46,7 +58,7 @@ export default function TryOnGlassesMenModel() {
     
   }
   const displayClass = glasses.display? 'd-block' : 'd-none'
-
+  const displayInfo = productChosen.display? 'd-block' : 'd-none'
 
     return (
         <Container>
@@ -68,15 +80,23 @@ export default function TryOnGlassesMenModel() {
            <button className="btn-before" onClick = {()=> {
                
              setGlasses({...glasses, display: false})
+             setProductChosen({...productChosen, display: false})
            }}>Before</button>
            <button className="btn-after" onClick = {()=> {
              setGlasses({...glasses, display: true})
+             setProductChosen({...productChosen, display: true})
            }}>After</button>
          </div>
          <div className="vglasses__model__men" id="avatarMen">
          <img src={glasses.chosenGlasses} className = {displayClass} id="glasses" alt='chosenGlasses'/>
          </div>
-         <div id="glassesInfo" className="vglasses__info">
+         <div id="glassesInfo" className= {`vglasses__info ${displayInfo}`}>
+         <h6 className='text-white'> {productChosen.brand} </h6>
+            <h5 className='text-white'>{productChosen.name}</h5>
+            <p className="card-text">
+            <span className="btn btn-danger btn-sm mr-2"> $ {productChosen.price}</span>
+            </p>
+            <p className="card-text"> {productChosen.description} </p>
          </div>
        </div>
      </div>

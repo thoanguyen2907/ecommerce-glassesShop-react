@@ -38,6 +38,16 @@
         position: relative;
         overflow: hidden;
         background-color: $color-light-2;
+        .vglasses__info{
+            position: absolute;
+            bottom:0;
+            left: 0;
+            background-color: rgba(0,0,0,0.7);
+            width: 100%;
+            color: white;
+            padding: 20px;
+  
+        }
     }
     .btn-before, .btn-after{
         padding: 5px 10px;
