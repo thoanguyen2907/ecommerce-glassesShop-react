@@ -9,6 +9,7 @@ import { Container } from '../../StyledElements/Container/Container';
 import { useFormik } from 'formik'
 import './ProductDetail.scss'
 import Swal from 'sweetalert2';
+import * as Yup from 'yup'
 import { history } from '../../utils/history/history';
 export default function ProductDetail() {
     const  {productId}: any = useParams()
@@ -18,6 +19,10 @@ export default function ProductDetail() {
     const userId = userData?.id
 
     const dispatch = useDispatch()
+    const  validationSchema =  Yup.object().shape({
+        color: Yup.string().required('Please choose a color'),
+        size: Yup.string().required('Please choose size')
+  })
  
     useEffect(() => {   
        dispatch({
@@ -34,7 +39,7 @@ export default function ProductDetail() {
             color: '',
         
         },
-
+        validationSchema,
         onSubmit: async (values) => {
             console.log(values);
             if(userId !== '') {
@@ -84,6 +89,7 @@ export default function ProductDetail() {
       <Radio.Button value="blue">Blue</Radio.Button>
       <Radio.Button value="grey">Grey</Radio.Button>
     </Radio.Group>
+    <p className='text-danger'> {errors.color ? errors.color : ''}</p>
                         </div>
                  <div className="my-3">
                  <Radio.Group onChange={handleChange} name = "size" value={values.size}>
@@ -91,11 +97,8 @@ export default function ProductDetail() {
       <Radio.Button value="m">M</Radio.Button>
       <Radio.Button value="x">X</Radio.Button>
     </Radio.Group>
+    <p className='text-danger'> {errors.size ? errors.size : ''}</p>
                  </div>
-
-   
-
-
                     <div className="product__add__to__cart">
         <ButtonAddToCart  type = "submit" 
             >  Add to cart
