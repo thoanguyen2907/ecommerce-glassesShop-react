@@ -8,7 +8,7 @@ import  axios from 'axios'
 import Swal from 'sweetalert2'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { OPEN_FORM_CREATE, SEND_EDITED_CATEGORY } from '../../types';
+import { DELETE_CATEGORY_SAGA, GET_CATEGORY_LIST_SAGA, OPEN_FORM_CREATE, SEND_EDITED_CATEGORY } from '../../types';
 import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart';
 import CreateCategory from '../../Components/Form/CreateCategory';
 import { Redirect } from 'react-router-dom';
@@ -42,11 +42,10 @@ export default function CategoryManagement() {
   const {categoryList} = useSelector((state: any) => state.category)
   const {userDataLogin} = useSelector((state: any) => state.userLogin)
   const userData = userDataLogin
-  console.log(categoryList);
-  console.log(userData);
+
    useEffect(() => {
    dispatch({
-     type: "GET_CATEGORY_LIST_SAGA"
+     type: GET_CATEGORY_LIST_SAGA
    })
   }, [])
   if (userData?.role === 'user' || userData?.role === '') {
@@ -91,7 +90,7 @@ export default function CategoryManagement() {
           }}/>
           <DeleteOutlined style={{ color: '#eb2f96' }} onClick={() => {
             dispatch({
-              type: "DELETE_CATEGORY_SAGA",
+              type: DELETE_CATEGORY_SAGA,
               payload: {
                 id: record.id
               }

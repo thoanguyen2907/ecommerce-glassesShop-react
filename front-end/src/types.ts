@@ -1,6 +1,6 @@
 
 
-// Action types
+// Product Action  types
 export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const GET_PRODUCT = 'GET_PRODUCT'
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
@@ -16,20 +16,18 @@ export const CREATE_NEW_PRODUCT= 'CREATE_NEW_PRODUCT'
 export const ADD_PRODUCT_NO_LOGIN= 'ADD_PRODUCT_NO_LOGIN'
 
 
-// user action types
+// User Action types
 export const GET_USER = 'GET_USER'
 export const USER_LOGIN = 'USER_LOGIN'
 export const USER_LOGIN_GOOGLE = 'USER_LOGIN_GOOGLE'
 export const USER_FORGOT_PASSWORD = 'USER_FORGOT_PASSWORD'
-
 export const USER_SIGN_UP= 'USER_SIGN_UP'
 export const GET_USER_TOKEN_LOGIN= 'GET_USER_TOKEN_LOGIN'
 export const GET_USER_DATA_LOGIN= 'GET_USER__DATA_LOGIN'
-
 export const GET_USER_DATA_BY_ID= 'GET_USER_DATA_BY_ID'
-
 export const GET_USER_BY_ID= 'GET_USER_BY_ID'
 
+//Category Action Types
 export const GET_CATEGORY = 'GET_CATEGORY'
 export const REMOVE_CATEGORY = 'REMOVE_CATEGORY'
 export const EDIT_CATEGORY= 'EDIT_CATEGORY'
@@ -37,8 +35,7 @@ export const SEND_EDITED_CATEGORY= 'SEND_EDITED_CATEGORY'
 export const CREATE_CATEGORY= 'CREATE_CATEGORY'
 export const SET_SUBMIT_CREATE_CATEGORY = 'SET_SUBMIT_CREATE_CATEGORY'
 
-
-// order action types
+// Order Action types
 export const GET_ORDER = 'GET_ORDER'
 export const ADD_ORDER = 'ADD_ORDER'
 export const INCREASE_ORDER_QUANTITY= 'INCREASE_ORDER_QUANTITY'
@@ -54,20 +51,60 @@ export const DELETE_ORDER_NO_LOGIN= 'DELETE_ORDER_NO_LOGIN'
 export const INCREASE_QUANTITY_NO_LOGIN= 'INCREASE_QUANTITY_NO_LOGIN'
 export const DECREASE_QUANTITY_NO_LOGIN= 'DECREASE_QUANTITY_NO_LOGIN'
 
+// Drawer Action types
 export const OPEN_DRAWER = 'OPEN_DRAWER'
 export const CLOSE_DRAWER = 'CLOSE_DRAWER'
+
+// Form Action types
 export const OPEN_FORM_CREATE = 'OPEN_FORM_CREATE'
 export const OPEN_FORM_EDIT_PRODUCT = 'OPEN_FORM_EDIT_PRODUCT'
 export const SET_SUBMIT_EDIT_PRODUCT = 'SET_SUBMIT_EDIT_PRODUCT'
 export const SET_SUBMIT_CREATE_PRODUCT = 'SET_SUBMIT_CREATE_PRODUCT'
 export const OPEN_FORM_EDIT_ORDER = 'OPEN_FORM_EDIT_ORDER'
 export const SET_SUBMIT_EDIT_ORDER = 'SET_SUBMIT_EDIT_ORDER'
-//Loading
+
+
+//Loading Action types
 export const DISPLAY_LOADING = 'DISPLAY_LOADING'
 export const HIDE_LOADING = 'HIDE_LOADING'
 
+// Saga constant 
+//category
+export const GET_CATEGORY_LIST_SAGA = 'GET_CATEGORY_LIST_SAGA'
+export const DELETE_CATEGORY_SAGA = 'DELETE_CATEGORY_SAGA'
+export const CREATE_CATEGORY_SAGA = 'CREATE_CATEGORY_SAGA'
+export const UPDATE_CATEGORY_SAGA = 'UPDATE_CATEGORY_SAGA'
+//order 
+export const GET_ORDER_LIST_SAGA = 'GET_ORDER_LIST_SAGA'
+export const GET_ORDERS_BY_USERID_SAGA = 'GET_ORDERS_BY_USERID_SAGA'
+export const INCREASE_PRODUCT_QUANTITY_SAGA = 'INCREASE_PRODUCT_QUANTITY_SAGA'
+export const DECREASE_PRODUCT_QUANTITY_SAGA = 'DECREASE_PRODUCT_QUANTITY_SAGA'
+export const DELETE_ORDER_SAGA = 'DELETE_ORDER_SAGA'
+export const ADD_ORDER_SAGA = 'ADD_ORDER_SAGA'
+export const DELETE_ORDER_SAGA_ADMIN = 'DELETE_ORDER_SAGA_ADMIN'
 
-// A product
+//product
+export const GET_PRODUCT_LIST_SAGA = 'GET_PRODUCT_LIST_SAGA'
+export const DELETE_PRODUCT_SAGA = 'DELETE_PRODUCT_SAGA'
+export const UPDATE_PRODUCT_SAGA = 'UPDATE_PRODUCT_SAGA'
+export const CREATE_PRODUCT_SAGA = 'CREATE_PRODUCT_SAGA'
+export const GET_PRODUCT_NEW_ARRIVAL_SAGA = 'GET_PRODUCT_NEW_ARRIVAL_SAGA'
+export const GET_PRODUCT_POPULAR_SAGA = 'GET_PRODUCT_POPULAR_SAGA'
+export const GET_PRODUCT_DETAIL_SAGA = 'GET_PRODUCT_DETAIL_SAGA'
+export const ADD_PRODUCT_NO_LOGIN_SAGA = 'ADD_PRODUCT_NO_LOGIN_SAGA'
+export const DELETE_PRODUCT_NO_LOGIN_SAGA = 'DELETE_PRODUCT_NO_LOGIN_SAGA'
+export const INCREASE_DECREASE_CART_SAGA = 'INCREASE_DECREASE_CART_SAGA'
+//user 
+
+export const GET_USER_LIST_SAGA = 'GET_USER_LIST_SAGA'
+export const USER_LOGIN_SAGA = 'USER_LOGIN_SAGA'
+export const USER_FORGOT_PASSWORD_SAGA = 'USER_FORGOT_PASSWORD_SAGA'
+export const USER_LOGIN_GOOGLE_SAGA = 'USER_LOGIN_GOOGLE_SAGA'
+export const USER_SIGN_UP_SAGA   = 'USER_SIGN_UP_SAGA'
+export const GET_USER_DETAIL_BY_ID = 'GET_USER_DETAIL_BY_ID'
+
+
+//  Product
 export type Product = {
   name: string,
 	price: number,
@@ -83,10 +120,11 @@ export type Product = {
   popular: true,
   _id?: string
 }
+
 //array of Cart to store product when user not login but add to cart
 export type Cart = Product & {quantity: number}
 
-
+// Product Edited 
 export type ProductEdited = {
   id: string,
   name: string,
@@ -246,7 +284,7 @@ export type GetOrderListByUserIdAction = {
     orderListByUserId: Order[]
   }
 }
-export type OrderActions = GetOrderAction | GetOrderListByUserIdAction | SendEditedOrderAction | AddOrderNoLoginAction | DeleteOrderNoLoginAction | InDecreaseOrderNoLoginAction
+
 
 export type AddProductAction = {
   type: typeof ADD_PRODUCT
@@ -381,6 +419,7 @@ export type RemoveCategoryAction = {
   }
 }
 
+export type OrderActions = GetOrderAction | GetOrderListByUserIdAction | SendEditedOrderAction | AddOrderNoLoginAction | DeleteOrderNoLoginAction | InDecreaseOrderNoLoginAction
 
 export type ChangeThemeAction = {
   type: typeof CHANGE_THEME

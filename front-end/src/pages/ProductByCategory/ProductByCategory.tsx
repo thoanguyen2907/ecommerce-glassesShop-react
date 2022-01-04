@@ -30,7 +30,6 @@ export default function ProductByCategory(props: IProps) {
         getProduct() 
       }, [])
     
-     console.log('productList', productList);
     
       const renderProduct = () => {
         return productList?.map((item: any, index: any) => {

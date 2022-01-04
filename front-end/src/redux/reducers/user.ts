@@ -14,7 +14,7 @@ import {
   ): UserState => {
     switch (action.type) {
     case GET_USER:
-        console.log(action.payload.userList)
+      
       return { ...state, userList: action.payload.userList }
   
     default:

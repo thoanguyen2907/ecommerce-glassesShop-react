@@ -1,4 +1,5 @@
-import { AddOrderNoLoginAction, ADD_PRODUCT_NO_LOGIN, DeleteOrderNoLoginAction, DELETE_ORDER_NO_LOGIN, InDecreaseOrderNoLoginAction, INCREASE_QUANTITY_NO_LOGIN } from './../../types';
+import { openNotification } from './../../utils/notification/notification';
+import { AddOrderNoLoginAction, ADD_PRODUCT_NO_LOGIN, DeleteOrderNoLoginAction, DELETE_ORDER_NO_LOGIN, InDecreaseOrderNoLoginAction, INCREASE_QUANTITY_NO_LOGIN, GET_PRODUCT_LIST_SAGA, DELETE_PRODUCT_SAGA, UPDATE_PRODUCT_SAGA, CREATE_PRODUCT_SAGA, GET_PRODUCT_NEW_ARRIVAL_SAGA, GET_PRODUCT_POPULAR_SAGA, GET_PRODUCT_DETAIL_SAGA, ADD_PRODUCT_NO_LOGIN_SAGA, DELETE_PRODUCT_NO_LOGIN_SAGA, INCREASE_DECREASE_CART_SAGA } from './../../types';
 import { STATUSCODE } from './../../utils/constants/settingSystem'
 
 import { productService } from './../../APIService/ProductService'
@@ -23,9 +24,7 @@ import {
 } from '../../types'
 
 function* getListProductSaga(action: GetProductAction) {
-  console.log(action.payload)
   const {valueSearch}  = action.payload;
-  console.log(valueSearch)
   let url = '?'
   if(valueSearch.brand !== '') url+= '&brand=' + valueSearch.brand
   if(valueSearch.color !== '') url+= '&color[in]=' + valueSearch.color
@@ -34,15 +33,17 @@ function* getListProductSaga(action: GetProductAction) {
  
   try {
     const { data, status } = yield call(() => productService.getAllProduct(url))
-console.log(data)
- 
+
     //DATA GET FROM API
+    if(data.success) {
       yield put({
         type: GET_PRODUCT,
         payload: {
           productList: data.data,
         },
       })
+    }
+     
   
   } catch (err) {
     console.log(err)
@@ -50,40 +51,35 @@ console.log(data)
 
 }
 export function* trackingGetListProductSaga() {
-  yield takeLatest('GET_PRODUCT_LIST_SAGA', getListProductSaga)
+  yield takeLatest(GET_PRODUCT_LIST_SAGA, getListProductSaga)
 }
 
 function* deleteProductSaga(action: RemoveProductAction) {
-  console.log(action.payload)
-  yield put({
-    type: DISPLAY_LOADING
-})
+
 
   try {
     const { data, status } = yield call(() => productService.deleteProduct(action.payload.id))
-   
-    yield put({
-      type: "GET_PRODUCT_LIST_SAGA",
-      payload: {
-        valueSearch: {
-          brand: '',
-          color: '',
-          price: '', 
-          category: ''
+    if(data.success) {
+      openNotification('Successful !', 'Delete product successfully !!!') 
+      yield put({
+        type: "GET_PRODUCT_LIST_SAGA",
+        payload: {
+          valueSearch: {
+            brand: '',
+            color: '',
+            price: '', 
+            category: ''
+          }
         }
-      }
-    })
-
+      })
+    }
     yield delay(1200)
   } catch (err) {
     console.log(err)
   }
-  yield put({
-    type: HIDE_LOADING
-})
 }
 export function* trackingDeleteProductSaga() {
-  yield takeLatest('DELETE_PRODUCT_SAGA', deleteProductSaga)
+  yield takeLatest(DELETE_PRODUCT_SAGA, deleteProductSaga)
 }
 
 function* updateProductSaga(action: EditProductAction) {
@@ -93,16 +89,19 @@ function* updateProductSaga(action: EditProductAction) {
   const {id, product} = action.payload
   try {
     const { data, status } = yield call(() => productService.editProduct(id, product))
-    yield put({
-      type: "GET_PRODUCT_LIST_SAGA",
-      payload: {
-        valueSearch: {
-          brand: '',
-          color: '',
-          price: '',
-          category: ''
-        }
-    }})
+    if(data.success) {
+      openNotification('Successful !', 'Update product successfully !!!') 
+      yield put({
+        type: "GET_PRODUCT_LIST_SAGA",
+        payload: {
+          valueSearch: {
+            brand: '',
+            color: '',
+            price: '',
+            category: ''
+          }
+      }})
+    }
     yield delay(1200)
 
   } catch (err) {
@@ -116,7 +115,7 @@ function* updateProductSaga(action: EditProductAction) {
 })
 }
 export function* trackingUpdateProductSaga() {
-  yield takeLatest('UPDATE_PRODUCT_SAGA', updateProductSaga)
+  yield takeLatest(UPDATE_PRODUCT_SAGA, updateProductSaga)
 }
 
 
@@ -127,17 +126,21 @@ function* createProductSaga(action: CreateNewProductAction) {
   const {product} = action.payload
   try {
     const { data } = yield call(() => productService.createProduct(product))
-
-    yield put({
-      type: "GET_PRODUCT_LIST_SAGA",
-      payload: {
-        valueSearch: {
-          brand: '',
-          color: '',
-          price: '',
-          category: ''
-        }
-    }})
+ 
+    if(data.success) {
+      openNotification('Successful !', 'Add product successfully !!!')
+      yield put({
+        type: GET_PRODUCT_LIST_SAGA,
+        payload: {
+          valueSearch: {
+            brand: '',
+            color: '',
+            price: '',
+            category: ''
+          }
+      }})
+    }
+   
     yield delay(1200)
 
   } catch (err) {
@@ -151,7 +154,7 @@ function* createProductSaga(action: CreateNewProductAction) {
 })
 }
 export function* trackingCreateProductSaga() {
-  yield takeLatest('CREATE_PRODUCT_SAGA', createProductSaga)
+  yield takeLatest(CREATE_PRODUCT_SAGA, createProductSaga)
 }
 
 
@@ -173,7 +176,7 @@ function* getNewArrivalProductSaga(action: GetNewArrivalProductAction) {
   }
 }
 export function* trackingGetNewArrivalProductSaga() {
-  yield takeLatest('GET_PRODUCT_NEW_ARRIVAL_SAGA', getNewArrivalProductSaga)
+  yield takeLatest(GET_PRODUCT_NEW_ARRIVAL_SAGA, getNewArrivalProductSaga)
 }
 function* getPopularProductSaga(action: GetPopularProductAction) {
   try {
@@ -192,7 +195,7 @@ function* getPopularProductSaga(action: GetPopularProductAction) {
   }
 }
 export function* trackingGetPopularProductSaga() {
-  yield takeLatest('GET_PRODUCT_POPULAR_SAGA', getPopularProductSaga)
+  yield takeLatest(GET_PRODUCT_POPULAR_SAGA, getPopularProductSaga)
 }
 
 function* getProductDetailSaga(action: GetProductDetailAction) {
@@ -207,14 +210,14 @@ function* getProductDetailSaga(action: GetProductDetailAction) {
   
     yield delay(1200)
     //DATA GET FROM API
-    if (status === STATUSCODE.SUCCESS) {
+    
       yield put({
         type: GET_PRODUCT_DETAIL_REDUCER,
         payload: {
           productDetail: data.data
         },
       })
-    }
+    
   } catch (err) {
     console.log(err)
   }
@@ -223,7 +226,7 @@ function* getProductDetailSaga(action: GetProductDetailAction) {
 })
 }
 export function* trackingGetProductDetailSaga() {
-  yield takeLatest('GET_PRODUCT_DETAIL_SAGA', getProductDetailSaga)
+  yield takeLatest(GET_PRODUCT_DETAIL_SAGA, getProductDetailSaga)
 }
 
 function* addProductNoLoginSaga(action: AddOrderNoLoginAction): any {
@@ -239,7 +242,7 @@ function* addProductNoLoginSaga(action: AddOrderNoLoginAction): any {
 }
 
 export function* trackingAddProductNoLoginSaga() {
-  yield takeLatest('ADD_PRODUCT_NO_LOGIN_SAGA', addProductNoLoginSaga)
+  yield takeLatest(ADD_PRODUCT_NO_LOGIN_SAGA, addProductNoLoginSaga)
 }
 
 function* deleteProductNoLoginSaga(action: DeleteOrderNoLoginAction): any {
@@ -252,7 +255,7 @@ function* deleteProductNoLoginSaga(action: DeleteOrderNoLoginAction): any {
 }
 
 export function* trackingDeleteProductNoLoginSaga() {
-  yield takeLatest('DELETE_PRODUCT_NO_LOGIN_SAGA', deleteProductNoLoginSaga)
+  yield takeLatest(DELETE_PRODUCT_NO_LOGIN_SAGA, deleteProductNoLoginSaga)
 }
 
 function* inDecreaseProductNoLoginSaga(action: InDecreaseOrderNoLoginAction) {
@@ -267,6 +270,6 @@ function* inDecreaseProductNoLoginSaga(action: InDecreaseOrderNoLoginAction) {
 }
 
 export function* trackingInDecreaseProductNoLoginSaga() {
-  yield takeLatest('INCREASE_DECREASE_CART_SAGA', inDecreaseProductNoLoginSaga)
+  yield takeLatest(INCREASE_DECREASE_CART_SAGA, inDecreaseProductNoLoginSaga)
 }
 

@@ -1,4 +1,4 @@
-import { DISPLAY_LOADING, GET_USER_DATA_BY_ID, HIDE_LOADING, UserForgotPasswordAction, UserLoginGoogleAction } from './../../types';
+import { DISPLAY_LOADING, GET_USER_DATA_BY_ID, GET_USER_DETAIL_BY_ID, GET_USER_LIST_SAGA, HIDE_LOADING, UserForgotPasswordAction, UserLoginGoogleAction, USER_FORGOT_PASSWORD_SAGA, USER_LOGIN_GOOGLE_SAGA, USER_LOGIN_SAGA, USER_SIGN_UP_SAGA } from './../../types';
 import { userService } from './../../APIService/UserService';
 import { STATUSCODE } from './../../utils/constants/settingSystem'
 import { delay, select, takeLatest } from 'redux-saga/effects'
@@ -23,7 +23,7 @@ function* getListUserSaga(action: GetUserAction) {
       yield put({
         type: GET_USER,
         payload: {
-          userList: data,
+          userList: data.data,
         },
       })
     
@@ -32,14 +32,14 @@ function* getListUserSaga(action: GetUserAction) {
   }
 }
 export function* trackingGetListUserSaga() {
-  yield takeLatest('GET_USER_LIST_SAGA', getListUserSaga)
+  yield takeLatest(GET_USER_LIST_SAGA, getListUserSaga)
 }
 
 function* userLoginSaga(action: UserLoginAction): any {
   const {email, password} = action.payload
   try {
     const { data } = yield call(() => authUserService.loginUser({email, password}))
-    console.log('data' , data)
+
     //DATA GET FROM API
       if(data.success) {
         openNotification('Login Success', 'Hello! Welcome to our website')
@@ -61,15 +61,15 @@ function* userLoginSaga(action: UserLoginAction): any {
   }
 }
 export function* trackingUserLoginSaga() {
-  yield takeLatest('USER_LOGIN_SAGA', userLoginSaga)
+  yield takeLatest(USER_LOGIN_SAGA, userLoginSaga)
 }
 
 function* userForgotPasswordSaga(action: UserForgotPasswordAction): any {
-  console.log(action.payload)
+
   const {email} = action.payload
   try {
     const { data } = yield call(() => authUserService.forgotPassword({email}))
-    console.log(data)
+
     if(data.success) {
       openNotification('Success', 'Check your email, please ')
     }  
@@ -79,13 +79,13 @@ function* userForgotPasswordSaga(action: UserForgotPasswordAction): any {
   }
 }
 export function* trackingUserForgotPasswordSaga() {
-  yield takeLatest('USER_FORGOT_PASSWORD_SAGA', userForgotPasswordSaga)
+  yield takeLatest(USER_FORGOT_PASSWORD_SAGA, userForgotPasswordSaga)
 }
 
 
 function* userLoginGoogleSaga(action: UserLoginGoogleAction): any {
   const {tokenId} = action.payload
-  console.log({tokenId})
+
   try {
   
      const { data } = yield call(() => authUserService.loginGoogleUser({tokenId}))
@@ -108,7 +108,7 @@ function* userLoginGoogleSaga(action: UserLoginGoogleAction): any {
   }
 }
 export function* trackingUserLoginGoogleSaga() {
-  yield takeLatest('USER_LOGIN_GOOGLE_SAGA', userLoginGoogleSaga)
+  yield takeLatest(USER_LOGIN_GOOGLE_SAGA, userLoginGoogleSaga)
 }
 
 
@@ -127,7 +127,7 @@ function* userSignUpSaga(action: UserSignUpAction) {
   }
 }
 export function* trackingUserSignUpSaga() {
-  yield takeLatest('USER_SIGN_UP_SAGA', userSignUpSaga)
+  yield takeLatest(USER_SIGN_UP_SAGA, userSignUpSaga)
 }
 
 function* getUserDataByIdSaga(action: GetUserByIdAction): any {
@@ -157,7 +157,7 @@ function* getUserDataByIdSaga(action: GetUserByIdAction): any {
 })
 }
 export function* trackingGetUserDataByIdSaga() {
-  yield takeLatest('GET_USER_DETAIL_BY_ID', getUserDataByIdSaga)
+  yield takeLatest(GET_USER_DETAIL_BY_ID, getUserDataByIdSaga)
 }
 
 

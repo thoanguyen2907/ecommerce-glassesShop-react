@@ -10,7 +10,7 @@ export default function HeaderFooterTemplate(props: any) {
             <Header/>
             
             <Component {...props}/>
-            <Footer/>
+            {/* <Footer/> */}
            
         </>
     }} />

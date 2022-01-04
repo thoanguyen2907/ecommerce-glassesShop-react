@@ -1,15 +1,18 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart'
 import { Container } from '../../StyledElements/Container/Container'
 import { ValueSearch } from '../../types'
+import { truncateString } from '../../utils/truncateString/truncateString'
 import './TryOnGlassesMenModel.scss'
 
 export default function TryOnGlassesMenModel() {
     const dispatch = useDispatch()
     const {productList} = useSelector((state: any) => state.product)
     const [glasses, setGlasses] = useState({
-      display: true,
+      display: false,
       chosenGlasses: 'https://i.postimg.cc/nrCpmMzK/v9.png'
     })
     const [productChosen, setProductChosen] = useState({
@@ -17,7 +20,8 @@ export default function TryOnGlassesMenModel() {
       description: '',
       name: '',
       price: '',
-      brand: ''
+      brand: '',
+      _id: ''
     })
     const valueSearch: ValueSearch = {
       brand: '',
@@ -48,8 +52,9 @@ export default function TryOnGlassesMenModel() {
               price: item.price,
               description: item.description,
               name: item.name,
+              _id: item._id,
               display: true})
-           setGlasses({...glasses, chosenGlasses: item.virtualImg})
+           setGlasses({...glasses, chosenGlasses: item.virtualImg,display: true})
 
          }} key ={index} alt= {item.virtualImg} className='img-fluid vglasses__items my-3'  />
       </div>
@@ -77,8 +82,7 @@ export default function TryOnGlassesMenModel() {
      <div className="col-12 col-lg-5 vglasses__right p-0">
        <div className="vglasses__card">
          <div className="mb-2 text-right mt-2 mr-2">
-           <button className="btn-before" onClick = {()=> {
-               
+           <button className="btn-before" onClick = {()=> {             
              setGlasses({...glasses, display: false})
              setProductChosen({...productChosen, display: false})
            }}>Before</button>
@@ -96,7 +100,12 @@ export default function TryOnGlassesMenModel() {
             <p className="card-text">
             <span className="btn btn-danger btn-sm mr-2"> $ {productChosen.price}</span>
             </p>
-            <p className="card-text"> {productChosen.description} </p>
+            <p className="card-text"> {truncateString(productChosen.description, 100)}  </p>
+            <NavLink to = {`/products/${productChosen._id}`}>
+           <ButtonAddToCart>  
+              Product Detail
+       </ButtonAddToCart></NavLink>
+
          </div>
        </div>
      </div>

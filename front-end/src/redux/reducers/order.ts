@@ -40,7 +40,6 @@ import {
     return { ...state, orderEdited: orderEdited}
 
     case ADD_PRODUCT_NO_LOGIN: 
-    console.log(action.payload.cart)
     const cartUpdated = [...state.cartList]
     const {cart} = action.payload
     let indexAddProduct = state.cartList.findIndex(

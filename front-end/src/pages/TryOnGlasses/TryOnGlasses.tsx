@@ -5,13 +5,14 @@ import { NavLink } from 'react-router-dom'
 import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart'
 import { Container } from '../../StyledElements/Container/Container'
 import { ValueSearch } from '../../types'
+import { truncateString } from '../../utils/truncateString/truncateString'
 import './TryOnGlasses.scss'
 
 export default function TryOnGlasses() {
   const dispatch = useDispatch()
   const {productList} = useSelector((state: any) => state.product)
   const [glasses, setGlasses] = useState({
-    display: true,
+    display: false,
     chosenGlasses: 'https://i.postimg.cc/Dwsf5WcB/v8.png'
   })
   const [productChosen, setProductChosen] = useState({
@@ -55,7 +56,7 @@ export default function TryOnGlasses() {
                             name: item.name,
                             _id: item._id,
                             display: true})
-           setGlasses({...glasses, chosenGlasses: item.virtualImg})
+           setGlasses({...glasses, chosenGlasses: item.virtualImg, display: true})
 
          }} key ={index} alt= {item.virtualImg} className='img-fluid vglasses__items my-3'  />
       </div>
@@ -96,11 +97,11 @@ export default function TryOnGlasses() {
         </div>
         <div id="glassesInfo" className= {`vglasses__info ${displayInfo}`}>
             <h6 className='text-white'> {productChosen.brand} </h6>
-            <h5 className='text-white'>{productChosen.name}</h5>
+            <h6 className='text-white'>{productChosen.name}</h6>
             <p className="card-text">
             <span className="btn btn-success btn-sm mr-2"> $ {productChosen.price}</span>
             </p>
-            <p className="card-text"> {productChosen.description} </p>
+            <p className="card-text"> {truncateString(productChosen.description, 100)}  </p>
             <NavLink to = {`/products/${productChosen._id}`}>
            <ButtonAddToCart>  
               Product Detail

@@ -6,17 +6,19 @@ import {
 } from '@ant-design/icons';
 import { Table, Tag, Space , Button} from 'antd';
 import  axios from 'axios'
-import { OPEN_DRAWER, OPEN_FORM_CREATE, OPEN_FORM_EDIT_PRODUCT, SEND_EDITED_PRODUCT, ValueSearch } from '../../types';
+import { DELETE_PRODUCT_SAGA, GET_PRODUCT_LIST_SAGA, OPEN_DRAWER, OPEN_FORM_CREATE, OPEN_FORM_EDIT_PRODUCT, SEND_EDITED_PRODUCT, ValueSearch } from '../../types';
 import EditProduct from '../../Components/Form/EditProduct';
 import CreateProduct from '../../Components/Form/CreateProduct';
 import Swal from 'sweetalert2'
 import { Redirect } from 'react-router-dom';
+import { ButtonBlue } from '../../StyledElements/Button/Button';
 
 const { Header, Sider, Content } = Layout;
 
 export default function ProductManagement() {
   const dispatch = useDispatch()
   const {productList} = useSelector((state: any) => state.product)
+  console.log('productList', productList)
    const {userDataLogin} = useSelector((state: any) => state.userLogin)
   const userData = userDataLogin
   const valueSearch: ValueSearch = {
@@ -27,15 +29,17 @@ export default function ProductManagement() {
   }
   const getProduct = async () =>  {
     dispatch({
-      type: "GET_PRODUCT_LIST_SAGA",
+      type: GET_PRODUCT_LIST_SAGA,
       payload: {
         valueSearch: valueSearch
       }
     })
   }
+
   useEffect(() => {
     getProduct() 
   }, [])
+
   if (userData?.role === 'user') {
     Swal.fire({
     title: 'Not Admin',
@@ -117,9 +121,9 @@ export default function ProductManagement() {
             })
           }}/>
           <DeleteOutlined style={{ color: '#eb2f96' }} onClick={() => {
-            console.log(record._id)
+          
             dispatch({
-              type: "DELETE_PRODUCT_SAGA",
+              type: DELETE_PRODUCT_SAGA,
               payload: {
                 id: record._id
               }
@@ -145,7 +149,7 @@ export default function ProductManagement() {
         }}
       >
 
-<Button type="primary" onClick = {() => {
+<ButtonBlue className='mb-3' onClick = {() => {
   dispatch({
     type: OPEN_FORM_CREATE,
     payload: {
@@ -154,7 +158,7 @@ export default function ProductManagement() {
       ComponentDrawerContent : <CreateProduct/>,        
     }
   })
-}}>Create Product</Button>
+}}>Create Product</ButtonBlue>
   <Table columns={columns} dataSource={productList} />
       </Content>
     </Layout>
