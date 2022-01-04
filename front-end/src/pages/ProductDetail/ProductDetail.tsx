@@ -23,7 +23,6 @@ export default function ProductDetail() {
         category: productDetail?.category
     } 
 
-    console.log('productDetail', productDetail)
     const dispatch = useDispatch()
     const  validationSchema =  Yup.object().shape({
         color: Yup.string().required('Please choose a color'),
@@ -37,7 +36,7 @@ export default function ProductDetail() {
             productId
            }
        })
-    }, [])
+    }, [productId])
     const { handleSubmit,errors, handleChange, values, setFieldValue }= useFormik({
         enableReinitialize: true,
         initialValues: {

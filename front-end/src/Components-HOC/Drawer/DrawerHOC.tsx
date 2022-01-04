@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { CLOSE_DRAWER, OPEN_DRAWER } from '../../types';
 import { Drawer, Button } from 'antd';
+import { ButtonBlue } from '../../StyledElements/Button/Button';
 export default function DrawerHOC() {
     const dispatch =  useDispatch();
     const {visible, ComponentDrawerContent, callBackSubmit, title} = useSelector((state: any) => state.drawer); 
@@ -34,9 +35,9 @@ export default function DrawerHOC() {
               <Button onClick={onClose} style={{ marginRight: 8 }}>
                 Cancel
               </Button>
-              <button onClick={callBackSubmit} type='submit' >
+              <ButtonBlue onClick={callBackSubmit} type='submit' >
                 Submit
-              </button>
+              </ButtonBlue>
             </div>
           }
         >

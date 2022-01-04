@@ -30,11 +30,12 @@ import GoogleLoginFunction from './pages/GoogleLogin/GoogleLoginFunction'
 import GlassesTrialRoom from './pages/GlassesTrialRoom/GlassesTrialRoom'
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword'
 import ResetPassword from './pages/ResetPassword/ResetPassword'
+import AdminTest from './pages/AdminTest/AdminTest'
 
 const Routes = () => (
     <Router history={history}>
     <DrawerHOC/>
-    <Loading/>
+    {/* <Loading/> */}
 
   <Switch>
     <AdminTemplate exact path="/admin/productmanagement" Component={ProductManagement} />
@@ -45,7 +46,10 @@ const Routes = () => (
     <AdminTemplate exact path="/admin/createcategory" Component={CreateCategory} />
     <AdminTemplate exact path="/admin/editproduct/:id" Component={EditProduct} />
     <AdminTemplate exact path="/admin/editcategory/:id" Component={EditCategory} />
-    <LoginTemplate exact path="/login/user" Component={LoginUser} />
+    <AdminTemplate exact path="/admin" component={AdminTest} />
+
+
+   <LoginTemplate exact path="/login/user" Component={LoginUser} />
     <LoginTemplate exact path="/signup/user" Component={SignUpUser} />
     <LoginTemplate exact path="/google-login" Component={GoogleLoginFunction} />
 
@@ -62,8 +66,8 @@ const Routes = () => (
     <HeaderFooterTemplate exact path="/" Component={HomePage} />
     <HeaderFooterTemplate exact path="/tryingGlassesRoom" Component={GlassesTrialRoom} />
     <HeaderFooterTemplate exact path="/payment" Component={Payment} />
-    <HeaderFooterTemplate exact path="/success" Component={SuccessPayment} />
-    <HeaderFooterTemplate exact path="/cancel" Component={CancelPayment} />
+    <Route exact path="/success" component ={SuccessPayment} />
+    <Route exact path="/cancel" component ={CancelPayment} />
   </Switch>
   </Router>
 )

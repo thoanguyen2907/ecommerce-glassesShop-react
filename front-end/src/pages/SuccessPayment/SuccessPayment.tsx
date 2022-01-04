@@ -1,12 +1,20 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { openNotification } from '../../utils/notification/notification';
 
 export default function SuccessPayment() {
-    openNotification('Payment Successfully', 'Thank you for shopping with us!!');
+    Swal.fire({ 
+        icon: 'success',
+        title: 'Payment Successfully',
+        text: 'Thank you for shopping with us!!',
+        showConfirmButton: false,
+        timer: 2500,
+      })
+
     return (
-        
-        <div className= "text-center">
-        <h6>Your Payment Successfully</h6> 
+        <div>
+        <Redirect to = "/" ></Redirect>
         </div>
     )
 }

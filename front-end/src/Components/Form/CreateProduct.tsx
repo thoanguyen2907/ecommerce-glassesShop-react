@@ -10,7 +10,7 @@ import {
   } from 'antd';
 import { useDispatch, useSelector } from 'react-redux'
 import { Dropdown } from '../../StyledElements/DropDown/DropDown'
-import { SET_SUBMIT_CREATE_PRODUCT } from '../../types'
+import { CREATE_PRODUCT_SAGA, GET_CATEGORY_LIST_SAGA, SET_SUBMIT_CREATE_PRODUCT } from '../../types'
 import { DropDownNormal } from '../../StyledElements/DropDownNormal/DropDownNormal'
 import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart'
 
@@ -23,7 +23,7 @@ import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddT
     const { Option } = Select;
     useEffect(() => {
        dispatch({
-           type: "GET_CATEGORY_LIST_SAGA"
+           type: GET_CATEGORY_LIST_SAGA
        })
        dispatch({ 
         type: SET_SUBMIT_CREATE_PRODUCT,
@@ -36,6 +36,14 @@ import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddT
   
     const  validationSchema =  Yup.object().shape({
         name: Yup.string().required('Please enter a name'),
+        size: Yup.string().required('Please enter a size'),
+        color: Yup.string().required('Please enter a color'),
+        price: Yup.string().required('Please enter a price'),
+        category: Yup.string().required('Please enter a category'),
+        brand: Yup.string().required('Please enter a brand'),
+        productImg: Yup.string().required('Please enter a productImg'),
+        description: Yup.string().required('Please enter a description'),
+        virtualImg:  Yup.string().required('Please enter a virtualImg')
   })
     const { handleSubmit,errors, handleChange, values, setFieldValue }= useFormik({
         enableReinitialize: true,
@@ -50,6 +58,7 @@ import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddT
             productImg: "",
             newArrival: false,
             popular: false,
+            virtualImg: ""
           
         },
         validationSchema,
@@ -59,9 +68,9 @@ import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddT
           const colorArray = color.split(',')
           const sizeArray = size.split(',')
           const newState = {...values,color:  colorArray, size:  sizeArray}
-            console.log(values)
+        
             dispatch({
-                type: "CREATE_PRODUCT_SAGA",
+                type: CREATE_PRODUCT_SAGA,
                 payload: {
                     product: newState
                 }
@@ -84,6 +93,7 @@ import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddT
                     name="size" 
                     onChange = {handleChange}
             />
+        <div className="text-danger"> {errors.size ? errors.size : null}</div> 
         </Form.Item>
         
     
@@ -97,7 +107,7 @@ import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddT
                 return  <Option value={item.id} key= {index}>{item.name} </Option>
             })}
         </Select>
-
+        <div className="text-danger"> {errors.category ? errors.category : null}</div> 
       </Form.Item>
 
         <Form.Item  className="form-group">
@@ -107,6 +117,7 @@ import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddT
                     name="color"   
                     onChange = {handleChange}
             />
+                  <div className="text-danger"> {errors.color ? errors.color : null}</div> 
         </Form.Item>
         <Form.Item  className="form-group">
                     <p>Name</p>
@@ -115,7 +126,7 @@ import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddT
                     name="name"        
                     onChange = {handleChange}
             />
-            {errors.name ? errors.name : null}
+          <div className="text-danger"> {errors.name ? errors.name : null}</div> 
         </Form.Item>
         <Form.Item  className="form-group">
                     <p>Price</p>
@@ -124,15 +135,16 @@ import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddT
                     name="price"
                     onChange = {handleChange}
             />
+                  <div className="text-danger"> {errors.price ? errors.price : null}</div> 
         </Form.Item>
         <Form.Item  className="form-group">
                     <p>Brand</p>
                     <Input type="text" 
                     className="form-control" 
-                    name="brand"
-      
+                    name="brand"    
                     onChange = {handleChange}
             />
+                  <div className="text-danger"> {errors.brand ? errors.brand : null}</div> 
         </Form.Item>
         <Form.Item  className="form-group">
                     <p>Description</p>
@@ -142,15 +154,25 @@ import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddT
             
                     onChange = {handleChange}
             />
+             <div className="text-danger"> {errors.description ? errors.description : null}</div> 
         </Form.Item>
         <Form.Item  className="form-group">
                     <p>Product Img</p>
                     <Input type="text" 
                     className="form-control" 
-                    name="productImg"
-            
+                    name="productImg"           
                     onChange = {handleChange}
             />
+                     <div className="text-danger"> {errors.productImg ? errors.productImg : null}</div> 
+        </Form.Item>
+        <Form.Item  className="form-group">
+                    <p>Virtual Img</p>
+                    <Input type="text" 
+                    className="form-control" 
+                    name="virtualImg"           
+                    onChange = {handleChange}
+            />
+                     <div className="text-danger"> {errors.virtualImg ? errors.virtualImg : null}</div> 
         </Form.Item>
         
         <Form.Item  className="form-group"> 

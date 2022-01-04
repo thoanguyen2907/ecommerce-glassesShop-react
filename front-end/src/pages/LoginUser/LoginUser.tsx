@@ -17,8 +17,8 @@ export default function LoginUser(props: any) {
 
     const { handleSubmit,errors, handleChange, values }= useFormik({
         initialValues: {
-            email: "trucguyen@gmail.com", 
-            password: "123123"
+            email: "", 
+            password: ""
         },
         validationSchema,
         onSubmit: async (values) => {   

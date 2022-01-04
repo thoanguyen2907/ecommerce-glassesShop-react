@@ -6,9 +6,9 @@ import {
   
   const initialState: CategoryEditState = {
     categoryEdit: {
-            name: "Athletic Shoes",
-            title: "Giầy cho bộ môn thể thao",
-            slug: "athletic-shoes"
+            name: "",
+            title: "",
+            slug: ""
     }
   }
   

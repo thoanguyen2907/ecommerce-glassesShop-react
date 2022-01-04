@@ -6,55 +6,66 @@ import {
 CategoryActions,
   CLOSE_DRAWER,
   CreateCategoryAction,
+  CREATE_CATEGORY_SAGA,
+  DELETE_CATEGORY_SAGA,
   EditCategoryAction,
 GET_CATEGORY,
-RemoveCategoryAction
+GET_CATEGORY_LIST_SAGA,
+RemoveCategoryAction,
+UPDATE_CATEGORY_SAGA
 } from '../../types'
 import { categoryService } from '../../APIService/CategoryService'
+import { openNotification } from '../../utils/notification/notification'
 
 function* getListCategorySaga(action: CategoryActions) {
   try {
     const { data, status } = yield call(() => categoryService.getAllCategory())
-    console.log(data)
-    console.log(status)
     //DATA GET FROM API
+    if(data.success){
       yield put({
         type: GET_CATEGORY,
         payload: {
             categoryList: data.data,
         },
       })
+    }
+     
     
   } catch (err) {
     console.log(err)
   }
 }
 export function* trackingGetListCategorySaga() {
-  yield takeLatest('GET_CATEGORY_LIST_SAGA', getListCategorySaga)
+  yield takeLatest(GET_CATEGORY_LIST_SAGA, getListCategorySaga)
 }
 function* deleteCategorySaga(action: RemoveCategoryAction) {
-  console.log(action.payload)
+
   try {
     const { data, status } = yield call(() => categoryService.deleteCategory(action.payload.id))
+  
+      openNotification('Successful !', 'Delete category successfully !!!')
     yield put({
-      type: "GET_CATEGORY_LIST_SAGA"
+      type: GET_CATEGORY_LIST_SAGA
     })
+  
 
   } catch (err) {
     console.log(err)
   }
 }
 export function* trackingDeleteCategorySaga() {
-  yield takeLatest('DELETE_CATEGORY_SAGA', deleteCategorySaga)
+  yield takeLatest(DELETE_CATEGORY_SAGA, deleteCategorySaga)
 }
 function* createCategorySaga(action: CreateCategoryAction) {
     const {name, title, slug} = action.payload
   try {
     const { data, status } = yield call(() => categoryService.createCategory({name, title, slug}))
-    console.log(data)
+    if(data.success){
+      openNotification('Successful !', 'Create category successfully !!!')
     yield put({
-      type: "GET_CATEGORY_LIST_SAGA"
+      type: GET_CATEGORY_LIST_SAGA
     })
+  }
     yield put({
       type: CLOSE_DRAWER
     })
@@ -64,24 +75,26 @@ function* createCategorySaga(action: CreateCategoryAction) {
   }
 }
 export function* trackingCreateCategorySaga() {
-  yield takeLatest('CREATE_CATEGORY_SAGA', createCategorySaga)
+  yield takeLatest(CREATE_CATEGORY_SAGA, createCategorySaga)
 }
 
 
 function* updateCategorySaga(action: EditCategoryAction) {
-  console.log(action.payload)
+
   const {id, category} = action.payload
   try {
     const { data } = yield call(() => categoryService.editCategory(id, category))
-    console.log(data)
-    yield put({
-      type: "GET_CATEGORY"
-    })
+    if(data.success){
+      openNotification('Successful !', 'Update category successfully !!!')
+      yield put({
+        type: GET_CATEGORY
+      })
+    }
 
   } catch (err) {
     console.log(err)
   }
 }
 export function* trackingUpdateCategorySaga() {
-  yield takeLatest('UPDATE_CATEGORY_SAGA', updateCategorySaga)
+  yield takeLatest(UPDATE_CATEGORY_SAGA, updateCategorySaga)
 }

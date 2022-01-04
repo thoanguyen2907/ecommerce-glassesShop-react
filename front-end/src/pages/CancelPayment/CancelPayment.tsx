@@ -1,11 +1,21 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { openNotification } from '../../utils/notification/notification';
 
 export default function CancelPayment() {
-    openNotification('Payment Canceled', 'Your payment canceled!!');
+    Swal.fire({
+        title: 'Canceled Payment',
+        text: 'You have canceled payment. Redirect to homepage!!',
+        timer: 2000,
+        showConfirmButton: false,
+      })
     return (
-        <div className= "text-center">
-        <h6>Your Payment Canceled</h6> 
-        </div>
+       <div>
+           
+           <Redirect to = "/" ></Redirect>
+       </div>
+       
+    
     )
 }

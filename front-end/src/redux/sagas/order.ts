@@ -1,4 +1,4 @@
-import { AddOrderAction, RemoveOrderAction } from './../../types';
+import { AddOrderAction, DECREASE_PRODUCT_QUANTITY_SAGA, DELETE_ORDER_SAGA, DELETE_ORDER_SAGA_ADMIN, GET_ORDERS_BY_USERID_SAGA, GET_ORDER_LIST_SAGA, INCREASE_PRODUCT_QUANTITY_SAGA, RemoveOrderAction } from './../../types';
 import { STATUSCODE } from './../../utils/constants/settingSystem'
 
 import { delay, select, takeLatest } from 'redux-saga/effects'
@@ -33,7 +33,7 @@ function* getListOrderSaga(action: GetOrderAction) {
   }
 }
 export function* trackingGetListOrderSaga() {
-  yield takeLatest('GET_ORDER_LIST_SAGA', getListOrderSaga)
+  yield takeLatest(GET_ORDER_LIST_SAGA, getListOrderSaga)
 }
 
 function* increaseQuantitySaga(action: IncreaseOrderAction) {
@@ -43,7 +43,7 @@ function* increaseQuantitySaga(action: IncreaseOrderAction) {
     //DATA GET FROM API
 
     yield put({
-      type: "GET_ORDERS_BY_USERID_SAGA",
+      type: GET_ORDERS_BY_USERID_SAGA,
       payload: {
         userId: userId
     },
@@ -53,7 +53,7 @@ function* increaseQuantitySaga(action: IncreaseOrderAction) {
   }
 }
 export function* trackingIncreaseQuantitySaga() {
-  yield takeLatest('INCREASE_PRODUCT_QUANTITY_SAGA', increaseQuantitySaga)
+  yield takeLatest(INCREASE_PRODUCT_QUANTITY_SAGA, increaseQuantitySaga)
 }
 
 function* decreaseQuantitySaga(action: IncreaseOrderAction) {
@@ -62,7 +62,7 @@ function* decreaseQuantitySaga(action: IncreaseOrderAction) {
     const { data, status } = yield call(() => orderService.decreaseQuantity(orderId))
     //DATA GET FROM API
     yield put({
-      type: "GET_ORDERS_BY_USERID_SAGA",
+      type: GET_ORDERS_BY_USERID_SAGA,
       payload: {
         userId: userId
     },
@@ -73,7 +73,7 @@ function* decreaseQuantitySaga(action: IncreaseOrderAction) {
   }
 }
 export function* trackingDecreaseQuantitySaga() {
-  yield takeLatest('DECREASE_PRODUCT_QUANTITY_SAGA', decreaseQuantitySaga)
+  yield takeLatest(DECREASE_PRODUCT_QUANTITY_SAGA, decreaseQuantitySaga)
 }
 
 function* getOrdersByUserIdSaga(action: GetOrderDataByUserId): any {
@@ -99,7 +99,7 @@ function* getOrdersByUserIdSaga(action: GetOrderDataByUserId): any {
  
 }
 export function* trackingGetOrdersByUserIdSaga() {
-  yield takeLatest('GET_ORDERS_BY_USERID_SAGA', getOrdersByUserIdSaga)
+  yield takeLatest(GET_ORDERS_BY_USERID_SAGA, getOrdersByUserIdSaga)
 }
 
 function* deleteOrderSagaByUserOrderId(action: DeleteOrderAction) {
@@ -109,7 +109,7 @@ function* deleteOrderSagaByUserOrderId(action: DeleteOrderAction) {
     openNotification('Delete Successfully', 'Delete Order Successfully !!');
     //DATA GET FROM API
     yield put({
-      type: "GET_ORDERS_BY_USERID_SAGA",
+      type: GET_ORDERS_BY_USERID_SAGA,
       payload: {
         userId: userId
     },
@@ -120,7 +120,7 @@ function* deleteOrderSagaByUserOrderId(action: DeleteOrderAction) {
   }
 }
 export function* trackingDeleteOrderSagaByUserOrderId() {
-  yield takeLatest('DELETE_ORDER_SAGA', deleteOrderSagaByUserOrderId)
+  yield takeLatest(DELETE_ORDER_SAGA, deleteOrderSagaByUserOrderId)
 }
 
 function* addOrderSaga(action: AddOrderAction) {
@@ -131,7 +131,7 @@ function* addOrderSaga(action: AddOrderAction) {
     openNotification('Successfully', 'Add Order Successfully !!');
     //DATA GET FROM API
     yield put({
-      type: "GET_ORDERS_BY_USERID_SAGA",
+      type: GET_ORDERS_BY_USERID_SAGA,
       payload: {
         userId: user
     },
@@ -152,7 +152,7 @@ function* deleteOrderSaga(action: RemoveOrderAction) {
     openNotification('Successfully', 'Delete Order Successfully !!');
     //DATA GET FROM API
     yield put({
-      type: "GET_ORDER_LIST_SAGA",
+      type: GET_ORDER_LIST_SAGA,
       
     })
     
@@ -161,5 +161,5 @@ function* deleteOrderSaga(action: RemoveOrderAction) {
   }
 }
 export function* trackingDeleteOrderSaga() {
-  yield takeLatest('DELETE_ORDER_SAGA_ADMIN', deleteOrderSaga)
+  yield takeLatest(DELETE_ORDER_SAGA_ADMIN, deleteOrderSaga)
 }

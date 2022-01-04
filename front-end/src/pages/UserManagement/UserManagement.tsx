@@ -6,6 +6,7 @@ import {
 import { Table, Tag, Space } from 'antd';
 import  axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
+import { GET_USER_LIST_SAGA } from '../../types';
 const { Header, Sider, Content } = Layout;
 
 
@@ -54,7 +55,7 @@ export default function UserManagement() {
   ];
   const getUsers = async () =>  {
     dispatch({
-      type: "GET_USER_LIST_SAGA"
+      type: GET_USER_LIST_SAGA
     })
   }
   useEffect(() => {

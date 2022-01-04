@@ -36,7 +36,7 @@ import {
     case GET_USER_DATA_BY_ID:    
 
         state.userDataById = action.payload.userDataById
-        console.log(state.userDataById)
+     
       return { ...state}
 
     case GET_USER_TOKEN_LOGIN:
