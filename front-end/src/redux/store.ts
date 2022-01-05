@@ -31,8 +31,16 @@ let initState: AppState = {
     },
    
     user: {
-      userList: []
-    },
+      userList: [],
+      userEdited: {
+        id: '',
+  lastName: '',
+  firstName: '',
+  email: '',
+  phone: '',
+  role: ''
+    }
+  },
     order: {
       orderList: [],
       orderListByUserId: [],

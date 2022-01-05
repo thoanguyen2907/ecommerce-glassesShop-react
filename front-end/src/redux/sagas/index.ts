@@ -27,6 +27,8 @@ export default function* rootSaga() {
     userSagas.trackingGetUserDataByIdSaga(),
     userSagas.trackingUserLoginGoogleSaga(),
     userSagas.trackingUserForgotPasswordSaga(),
+    userSagas.trackingDeleteUserDataByIdSaga(),
+    userSagas.trackingUpdateUserDataByIdSaga() ,
 
     orderSagas.trackingGetListOrderSaga(),
     orderSagas.trackingDecreaseQuantitySaga(),

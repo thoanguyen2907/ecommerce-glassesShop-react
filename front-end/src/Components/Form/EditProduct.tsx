@@ -19,7 +19,6 @@ import { DropDownNormal } from '../../StyledElements/DropDownNormal/DropDownNorm
 export default function EditProduct() {
     const {categoryList} = useSelector((state: any) => state.category)
     let {productEdit} = useSelector((state: any) => state.productEdit)
-    console.log({productEdit});
     const dispatch = useDispatch()
     const  {id}: any = useParams();
     const  validationSchema =  Yup.object().shape({
@@ -59,7 +58,6 @@ export default function EditProduct() {
           const colorArray = color.split(',')
           const sizeArray = size.split(',')
           const newState = {...values,color:  colorArray, size:  sizeArray}
-          console.log(newState)
             dispatch({
                 type: "UPDATE_PRODUCT_SAGA",
                 payload: {
@@ -74,7 +72,7 @@ export default function EditProduct() {
     return (
         <div>
             <Container>
-        <Form  onSubmitCapture={handleSubmit}  layout="horizontal">
+        <Form  onSubmitCapture={handleSubmit} >
         <h3 className="text-center"> Edit Product Form</h3>    
         <Form.Item className="form-group">
                     <p>Size</p>

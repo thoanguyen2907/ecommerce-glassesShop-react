@@ -1,5 +1,4 @@
 
-
 // Product Action  types
 export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const GET_PRODUCT = 'GET_PRODUCT'
@@ -26,6 +25,12 @@ export const GET_USER_TOKEN_LOGIN= 'GET_USER_TOKEN_LOGIN'
 export const GET_USER_DATA_LOGIN= 'GET_USER__DATA_LOGIN'
 export const GET_USER_DATA_BY_ID= 'GET_USER_DATA_BY_ID'
 export const GET_USER_BY_ID= 'GET_USER_BY_ID'
+export const DELETE_USER= 'DELETE_USER'
+export const SET_SUBMIT_EDITED_USER = 'SET_SUBMIT_EDITED_USER'
+export const SEND_EDITED_USER= 'SEND_EDITED_USER'
+export const  UPDATE_USER = 'UPDATE_USER'
+export const  UPDATE_USER_SAGA = 'UPDATE_USER_SAGA'
+
 
 //Category Action Types
 export const GET_CATEGORY = 'GET_CATEGORY'
@@ -34,7 +39,7 @@ export const EDIT_CATEGORY= 'EDIT_CATEGORY'
 export const SEND_EDITED_CATEGORY= 'SEND_EDITED_CATEGORY'
 export const CREATE_CATEGORY= 'CREATE_CATEGORY'
 export const SET_SUBMIT_CREATE_CATEGORY = 'SET_SUBMIT_CREATE_CATEGORY'
-
+export const SET_SUBMIT_EDITED_CATEGORY = 'SET_SUBMIT_EDITED_CATEGORY'
 // Order Action types
 export const GET_ORDER = 'GET_ORDER'
 export const ADD_ORDER = 'ADD_ORDER'
@@ -62,7 +67,8 @@ export const SET_SUBMIT_EDIT_PRODUCT = 'SET_SUBMIT_EDIT_PRODUCT'
 export const SET_SUBMIT_CREATE_PRODUCT = 'SET_SUBMIT_CREATE_PRODUCT'
 export const OPEN_FORM_EDIT_ORDER = 'OPEN_FORM_EDIT_ORDER'
 export const SET_SUBMIT_EDIT_ORDER = 'SET_SUBMIT_EDIT_ORDER'
-
+export const OPEN_FORM_EDIT_CATEGORY = 'OPEN_FORM_EDIT_CATEGORY'
+export const OPEN_FORM_EDIT_USER = 'OPEN_FORM_EDIT_USER'
 
 //Loading Action types
 export const DISPLAY_LOADING = 'DISPLAY_LOADING'
@@ -102,7 +108,7 @@ export const USER_FORGOT_PASSWORD_SAGA = 'USER_FORGOT_PASSWORD_SAGA'
 export const USER_LOGIN_GOOGLE_SAGA = 'USER_LOGIN_GOOGLE_SAGA'
 export const USER_SIGN_UP_SAGA   = 'USER_SIGN_UP_SAGA'
 export const GET_USER_DETAIL_BY_ID = 'GET_USER_DETAIL_BY_ID'
-
+export const DELETE_USER_BY_ID_SAGA = 'DELETE_USER_BY_ID_SAGA'
 
 //  Product
 export type Product = {
@@ -138,8 +144,17 @@ export type ProductEdited = {
   category: string,
   productImg: string
 }
+export type UserEdited = {
+  id?: string,
+  lastName: string
+  firstName: string
+  email: string
+  phone: string
+  role?: string,
+}
 
 export type User = {
+  
   lastName: string
   firstName: string
   email: string
@@ -256,6 +271,13 @@ export type GetUserAction = {
   }
 }
 
+export type DeleteUserAction = {
+  type: typeof DELETE_USER
+  payload: {
+    userId : string
+  }
+}
+
 
 export type GetUserLoginAction = {
   type: typeof GET_USER_TOKEN_LOGIN
@@ -298,6 +320,12 @@ export type AddOrderNoLoginAction = {
     cart: Product
   }
 }
+export type SendEditedUserAction = {
+  type: typeof SEND_EDITED_USER
+  payload: {
+    user: UserEdited
+  }
+}
 export type SendEditedProductAction = {
   type: typeof SEND_EDITED_PRODUCT
   payload: {
@@ -331,6 +359,14 @@ export type EditCategoryAction = {
     id: string
   }
 }
+export type EditUserAction = {
+  type: typeof UPDATE_USER
+  payload: {
+    userEdited: UserEdited,
+    userId: string
+  }
+}
+
 export type InDecreaseOrderNoLoginAction = {
   type: typeof INCREASE_QUANTITY_NO_LOGIN
   payload: {
@@ -346,6 +382,25 @@ export type OpenDrawerAction = {
     visible: boolean
   }
 }
+export type OpenEditCategoryAction = {
+  type: typeof OPEN_FORM_EDIT_CATEGORY
+  payload: {
+    visible: boolean,
+    title: string, 
+    ComponentDrawerContent: React.ReactNode,
+  }
+}
+export type OpenEditUserAction = {
+  type: typeof OPEN_FORM_EDIT_USER
+  payload: {
+    visible: boolean,
+    title: string, 
+    ComponentDrawerContent: React.ReactNode,
+  }
+}
+
+
+
 
 export type OpenFormEditAction = {
   type: typeof OPEN_FORM_EDIT_PRODUCT
@@ -387,6 +442,12 @@ export type CloseDrawerAction = {
     visible: boolean
   }
 }
+export type SubmitEditUserAction = {
+  type: typeof SET_SUBMIT_EDITED_USER
+  payload: {
+    submitFunction:  (...args: any) => any
+  }
+}
 export type SubmitEditProductAction = {
   type: typeof SET_SUBMIT_EDIT_PRODUCT
   payload: {
@@ -405,6 +466,13 @@ export type SubmitCreateCategoryAction = {
     submitFunction:  (...args: any) => any
   }
 }
+export type SubmitEditCategoryAction = {
+  type: typeof SET_SUBMIT_EDITED_CATEGORY
+  payload: {
+    submitFunction:  (...args: any) => any
+  }
+}
+
 
 export type RemoveProductAction = {
   type: typeof REMOVE_PRODUCT
@@ -438,6 +506,10 @@ export type DrawerActions =
   | OpenFormCreateAction
   | OpenFormEditOrderAction
   | SubmitCreateCategoryAction
+  | OpenEditCategoryAction
+  | SubmitEditCategoryAction
+  | OpenEditUserAction
+  | SubmitEditUserAction
 
 // Use this union in reducer
 export type ProductActions =
@@ -463,7 +535,8 @@ export type ProductState = {
   productDetail: Product
 }
 export type UserState = {
-  userList: User[]
+  userList: User[],
+  userEdited: UserEdited
 }
 export type OrderState = {
   orderList: Order[],
@@ -597,8 +670,7 @@ export type UserDataLoginAction = {
     password: string
   }
 }
-export type UserActions =  UserLoginAction | UserSignUpAction | GetUserByIdAction | 
-GetUserLoginAction | GetUserDataByIdAction | UserLoginGoogleAction | UserForgotPasswordAction
+export type UserActions =  UserLoginAction | UserSignUpAction | GetUserByIdAction | GetUserLoginAction | GetUserDataByIdAction | UserLoginGoogleAction | UserForgotPasswordAction | DeleteUserAction | SendEditedUserAction | EditUserAction
 
 export type UserLoginState = {
   userDataLogin : UserDataLogin,

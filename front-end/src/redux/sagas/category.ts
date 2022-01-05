@@ -84,16 +84,20 @@ function* updateCategorySaga(action: EditCategoryAction) {
   const {id, category} = action.payload
   try {
     const { data } = yield call(() => categoryService.editCategory(id, category))
+    console.log(data)
     if(data.success){
       openNotification('Successful !', 'Update category successfully !!!')
       yield put({
-        type: GET_CATEGORY
+        type: GET_CATEGORY_LIST_SAGA
       })
     }
 
   } catch (err) {
     console.log(err)
   }
+  yield put({
+    type: CLOSE_DRAWER
+  })
 }
 export function* trackingUpdateCategorySaga() {
   yield takeLatest(UPDATE_CATEGORY_SAGA, updateCategorySaga)
