@@ -33,7 +33,7 @@ export default function ProductByCategory(props: IProps) {
     
       const renderProduct = () => {
         return productList?.map((item: any, index: any) => {
-          return <div className="col-3">
+          return <div className="col-12 col-md-6 col-lg-3 my-2">
               <div className="product__info" key = {index}>
             <div className="product__pic">
               <img src={item.productImg} alt="product__pic" />
