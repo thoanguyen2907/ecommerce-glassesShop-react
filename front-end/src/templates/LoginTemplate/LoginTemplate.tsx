@@ -7,14 +7,7 @@ const {  Sider, Content } = Layout;
 
 export default function LoginTemplate(props: any) {
     const [{width,height }, setSize] = useState({width: window.innerWidth,height:window.innerHeight });
-    useEffect(()=>{
-        window.onresize = () =>{
-            setSize({
-                width: window.innerWidth, 
-                height: window.innerHeight, 
-            })
-        }
-    }, [])
+   
 
     const {Component, ...resRoute} = props; 
 

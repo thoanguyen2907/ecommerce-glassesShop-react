@@ -9,6 +9,9 @@ import {
     OPEN_FORM_CREATE,
     OPEN_FORM_EDIT_ORDER,
     SET_SUBMIT_CREATE_CATEGORY,
+    OPEN_FORM_EDIT_CATEGORY,
+    SET_SUBMIT_EDITED_CATEGORY,
+    SET_SUBMIT_EDITED_USER,
   } from './../../types'
   
   const initialState: DrawerState = {
@@ -39,11 +42,18 @@ import {
 
         return {...state, visible: true, ComponentDrawerContent: action.payload.ComponentDrawerContent, title: action.payload.title} 
       
-
+        case OPEN_FORM_EDIT_CATEGORY: 
+      return {...state, visible: true, ComponentDrawerContent: action.payload.ComponentDrawerContent, title: action.payload.title} 
+      case "OPEN_FORM_EDIT_USER": 
+      return {...state, visible: true, ComponentDrawerContent: action.payload.ComponentDrawerContent, title: action.payload.title} 
     case SET_SUBMIT_EDIT_PRODUCT: 
       state.callBackSubmit = action.payload.submitFunction
     return {...state}
 
+    case SET_SUBMIT_EDITED_USER: 
+    state.callBackSubmit = action.payload.submitFunction
+  return {...state}
+    
     case SET_SUBMIT_CREATE_PRODUCT: 
     state.callBackSubmit = action.payload.submitFunction
   return {...state}
@@ -51,6 +61,11 @@ import {
   case SET_SUBMIT_CREATE_CATEGORY: 
     state.callBackSubmit = action.payload.submitFunction
   return {...state}
+
+  case SET_SUBMIT_EDITED_CATEGORY: 
+    state.callBackSubmit = action.payload.submitFunction
+  return {...state}
+  
 
       default:
       return state

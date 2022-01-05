@@ -1,4 +1,4 @@
-import { DISPLAY_LOADING, GET_USER_DATA_BY_ID, GET_USER_DETAIL_BY_ID, GET_USER_LIST_SAGA, HIDE_LOADING, UserForgotPasswordAction, UserLoginGoogleAction, USER_FORGOT_PASSWORD_SAGA, USER_LOGIN_GOOGLE_SAGA, USER_LOGIN_SAGA, USER_SIGN_UP_SAGA } from './../../types';
+import { CLOSE_DRAWER, DeleteUserAction, DELETE_USER_BY_ID_SAGA, DISPLAY_LOADING, EditUserAction, GET_USER_DATA_BY_ID, GET_USER_DETAIL_BY_ID, GET_USER_LIST_SAGA, HIDE_LOADING, UPDATE_USER_SAGA, UserForgotPasswordAction, UserLoginGoogleAction, USER_FORGOT_PASSWORD_SAGA, USER_LOGIN_GOOGLE_SAGA, USER_LOGIN_SAGA, USER_SIGN_UP_SAGA } from './../../types';
 import { userService } from './../../APIService/UserService';
 import { STATUSCODE } from './../../utils/constants/settingSystem'
 import { delay, select, takeLatest } from 'redux-saga/effects'
@@ -159,6 +159,48 @@ function* getUserDataByIdSaga(action: GetUserByIdAction): any {
 export function* trackingGetUserDataByIdSaga() {
   yield takeLatest(GET_USER_DETAIL_BY_ID, getUserDataByIdSaga)
 }
+
+function* deleteUserDataByIdSaga(action: DeleteUserAction): any {
+  const {userId} = action.payload
+  try {
+    const { data } = yield call(() => userService.deleteUserById(userId) )
+    openNotification('Success', 'Delete User Successfully ')
+  
+    yield put({
+      type: GET_USER_LIST_SAGA
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}
+export function* trackingDeleteUserDataByIdSaga() {
+  yield takeLatest(DELETE_USER_BY_ID_SAGA, deleteUserDataByIdSaga)
+}
+
+function* updateUserDataByIdSaga(action: EditUserAction): any {
+  const {userId, userEdited} = action.payload
+  try {
+    const { data } = yield call(() => userService.updateUserById(userId, userEdited) )
+    console.log(data)
+    if(data.success) {
+      openNotification('Success', 'Update user successfully')
+      yield put({
+        type: GET_USER_LIST_SAGA
+      })
+    }
+    
+  } catch (err) {
+    console.log(err)
+  }
+  yield put ({
+    type: CLOSE_DRAWER
+  })
+}
+export function* trackingUpdateUserDataByIdSaga() {
+  yield takeLatest(UPDATE_USER_SAGA, updateUserDataByIdSaga)
+}
+
+
 
 
 

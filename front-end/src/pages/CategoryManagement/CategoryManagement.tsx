@@ -8,10 +8,11 @@ import  axios from 'axios'
 import Swal from 'sweetalert2'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { DELETE_CATEGORY_SAGA, GET_CATEGORY_LIST_SAGA, OPEN_FORM_CREATE, SEND_EDITED_CATEGORY } from '../../types';
+import { DELETE_CATEGORY_SAGA, GET_CATEGORY_LIST_SAGA, OPEN_FORM_CREATE, OPEN_FORM_EDIT_CATEGORY, SEND_EDITED_CATEGORY } from '../../types';
 import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart';
 import CreateCategory from '../../Components/Form/CreateCategory';
 import { Redirect } from 'react-router-dom';
+import EditCategory from '../../Components/Form/EditCategory';
 const { Header, Sider, Content } = Layout;
 const data = [
   {
@@ -85,6 +86,14 @@ export default function CategoryManagement() {
               type: SEND_EDITED_CATEGORY,
               payload: {
                 category: record
+              }
+            })
+            dispatch({
+              type: OPEN_FORM_EDIT_CATEGORY,
+              payload: {
+                visible: true,
+                title: "Edit Category Form", 
+                ComponentDrawerContent : <EditCategory/>,        
               }
             })
           }}/>

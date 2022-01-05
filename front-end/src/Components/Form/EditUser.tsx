@@ -11,16 +11,15 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Container } from '../../StyledElements/Container/Container'
-import { SET_SUBMIT_EDITED_CATEGORY, UPDATE_CATEGORY_SAGA } from '../../types'
+import { SET_SUBMIT_EDITED_CATEGORY, SET_SUBMIT_EDITED_USER, UPDATE_CATEGORY_SAGA, UPDATE_USER_SAGA } from '../../types'
 
-export default function EditCategory() {
-    const {categoryEdit} = useSelector((state: any) => state.categoryEdit)
+export default function EditUser() {
+    const {userEdited} = useSelector((state: any) => state.user)
 
     const dispatch = useDispatch()
-    const  {id}: any = useParams()
     useEffect(() => {
         dispatch({ 
-            type: SET_SUBMIT_EDITED_CATEGORY,
+            type: SET_SUBMIT_EDITED_USER,
             payload: {
                 submitFunction: handleSubmit
             }
@@ -30,20 +29,23 @@ export default function EditCategory() {
       const { handleSubmit,errors, handleChange, values }= useFormik({
         enableReinitialize: true,
         initialValues: {
-            name: categoryEdit.name,
-            title : categoryEdit.title,
-            slug : categoryEdit.slug
+            lastName: userEdited.lastName,
+            firstName: userEdited.firstName,
+            email: userEdited.email,
+            role : userEdited.role,
+            phone : userEdited.phone,
+            
         },
         onSubmit: async (values) => {
             dispatch({
-                type: UPDATE_CATEGORY_SAGA,
+                type: UPDATE_USER_SAGA,
                 payload: {
-                    category: values,
-                    id: categoryEdit.id
+                    userEdited: values,
+                    userId: userEdited.id
                   }
             })
             // axios({
-            //     url:`http://localhost:5000/api/v1/category/${categoryEdit.id}`,
+            //     url:`http://localhost:5000/api/v1/users/${userEdited.id}`,
             //     method:'PUT',
             //     data: values,
                
@@ -52,44 +54,62 @@ export default function EditCategory() {
             console.log({values});
         }
     })
-    console.log('categoryEdit', categoryEdit);
+    console.log('userEdited', userEdited);
     return (
-        <div style={{backgroundColor: '#ffffff', padding: '20px', width:'80%'}}>
+      
             <Container> 
         <Form  onSubmitCapture={handleSubmit}  layout="horizontal">
-        <h3 className="text-center"> Update Category</h3>    
+        <h3 className="text-center"> Update User</h3>    
         <Form.Item className="form-group">
-                    <p>Name</p>
+                    <p>Last Name</p>
                     <Input type="text" 
                     className="form-control" 
-                    name="name"
+                    name="lastName"
                     onChange = {handleChange}
-                    value={values.name}
+                    value={values.lastName}
             />
        
         </Form.Item>
         <Form.Item  className="form-group">
-                    <p>Title</p>
+                    <p>First Name</p>
                     <Input type="text" 
                     className="form-control" 
-                    name="title"
+                    name="firstName"
                     onChange = {handleChange}
-                    value={values.title}
+                    value={values.firstName}
             />
         </Form.Item>
         <Form.Item  className="form-group">
-                    <p>Slug</p>
+                    <p>Email</p>
                     <Input type="text" 
                     className="form-control" 
-                    name="slug"        
+                    name="email"        
                     onChange = {handleChange}
-                    value={values.slug}
+                    value={values.email}
+            />
+        </Form.Item>
+        <Form.Item  className="form-group">
+                    <p>Role</p>
+                    <Input type="text" 
+                    className="form-control" 
+                    name="role"        
+                    onChange = {handleChange}
+                    value={values.role}
+            />
+        </Form.Item>
+        <Form.Item  className="form-group">
+                    <p>Phone</p>
+                    <Input type="text" 
+                    className="form-control" 
+                    name="phone"        
+                    onChange = {handleChange}
+                    value={values.phone}
             />
         </Form.Item>
     
-        <Button htmlType="submit">Update Category</Button>
+      
         </Form>  
         </Container>
-        </div>
+  
     )
 }

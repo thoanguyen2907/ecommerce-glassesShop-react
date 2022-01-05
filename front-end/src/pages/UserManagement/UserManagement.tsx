@@ -6,7 +6,8 @@ import {
 import { Table, Tag, Space } from 'antd';
 import  axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_USER_LIST_SAGA } from '../../types';
+import { DELETE_USER_BY_ID_SAGA, GET_USER_LIST_SAGA, SEND_EDITED_USER } from '../../types';
+import EditUser from '../../Components/Form/EditUser';
 const { Header, Sider, Content } = Layout;
 
 
@@ -47,8 +48,35 @@ export default function UserManagement() {
       key: 'action',
       render: (text: any, record: any) => (
         <Space size="middle">
-          <EditOutlined/>
-          <DeleteOutlined style={{ color: '#eb2f96' }} />
+          <EditOutlined onClick={() => {    
+     
+          dispatch({
+            type: SEND_EDITED_USER,
+            payload: {
+              user: record
+            }
+          })
+          dispatch({
+            type: "OPEN_FORM_EDIT_USER",
+            payload: {
+              visible: true,
+              title: "Edit User Form", 
+              ComponentDrawerContent : <EditUser/>,        
+            }
+          })
+        }}
+          
+          
+          />
+          <DeleteOutlined style={{ color: '#eb2f96' }} onClick={() => {    
+          
+            dispatch({
+              type: DELETE_USER_BY_ID_SAGA,
+              payload: {
+                userId: record._id
+              }
+            })
+          }}/>
         </Space>
       ),
     },

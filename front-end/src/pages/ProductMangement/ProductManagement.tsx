@@ -110,7 +110,7 @@ export default function ProductManagement() {
                 product: record
               }
             })
-            console.log(record)
+           
             dispatch({
               type: OPEN_FORM_EDIT_PRODUCT,
               payload: {
@@ -120,14 +120,12 @@ export default function ProductManagement() {
               }
             })
           }}/>
-          <DeleteOutlined style={{ color: '#eb2f96' }} onClick={() => {
-          
+          <DeleteOutlined style={{ color: '#eb2f96' }} onClick={() => {         
             dispatch({
               type: DELETE_PRODUCT_SAGA,
               payload: {
                 id: record._id
               }
-             
             })
           }}
             />
