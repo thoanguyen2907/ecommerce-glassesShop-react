@@ -12,7 +12,15 @@ export default function LoginTemplate(props: any) {
                 height: window.innerHeight, 
             })
         }
-    }, [])
+        return () => {
+            window.onresize = () =>{
+                setSize({
+                    width: window.innerWidth, 
+                    height: window.innerHeight, 
+                })
+            }
+        }
+    }, [width, height])
 
     const {Component, ...resRoute} = props; 
 

@@ -5,7 +5,7 @@ import { Layout } from 'antd';
 export default function AdminTemplate(props: any) {
     const {Component, ...restParam} = props; 
     return <Route {...restParam} render = {(propsRoute)=>{
-        return <>
+        return <>z
        <Layout style = {{height: "100vh"}} >
         <SiderBar/> 
         <Layout className="site-layout">
