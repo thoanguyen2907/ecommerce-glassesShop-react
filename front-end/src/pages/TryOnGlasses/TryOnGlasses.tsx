@@ -4,12 +4,14 @@ import { Container } from '../../StyledElements/Container/Container'
 import { ValueSearch } from '../../types'
 import './TryOnGlasses.scss'
 
+
 export default function TryOnGlasses() {
   const dispatch = useDispatch()
+  const category_women = '61ad29c4520b1921c2c33fb6'
   const {productList} = useSelector((state: any) => state.product)
   const [glasses, setGlasses] = useState({
-    display: true,
-    chosenGlasses: 'https://i.postimg.cc/Dwsf5WcB/v8.png'
+    display: false,
+    chosenGlasses: ''
   })
   const valueSearch: ValueSearch = {
     brand: '',
@@ -32,12 +34,13 @@ export default function TryOnGlasses() {
   }, [])
 
 
+  const productListForWomen = productList?.filter((item: any) => item.category === category_women)
 
   const renderVirtualImg = () => {
-    return productList.map((item: any, index: any) => {
+    return productListForWomen?.map((item: any, index: any) => {
       return   <div className="col-4 d-flex align-items-center" key = {index}>
          <img src={item.virtualImg} onClick = {() => {
-           setGlasses({...glasses, chosenGlasses: item.virtualImg})
+           setGlasses({...glasses, chosenGlasses: item.virtualImg, display: true})
 
          }} key ={index} alt= {item.virtualImg} className='img-fluid vglasses__items my-3'  />
       </div>

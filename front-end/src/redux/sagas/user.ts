@@ -23,7 +23,7 @@ function* getListUserSaga(action: GetUserAction) {
       yield put({
         type: GET_USER,
         payload: {
-          userList: data,
+          userList: data.data,
         },
       })
     
