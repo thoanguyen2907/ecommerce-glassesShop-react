@@ -1,27 +1,17 @@
-import { ShoppingCartOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
-import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart'
 import { Container } from '../../StyledElements/Container/Container'
 import { ValueSearch } from '../../types'
-import { truncateString } from '../../utils/truncateString/truncateString'
 import './TryOnGlasses.scss'
+
 
 export default function TryOnGlasses() {
   const dispatch = useDispatch()
+  const category_women = '61ad29c4520b1921c2c33fb6'
   const {productList} = useSelector((state: any) => state.product)
   const [glasses, setGlasses] = useState({
     display: false,
-    chosenGlasses: 'https://i.postimg.cc/Dwsf5WcB/v8.png'
-  })
-  const [productChosen, setProductChosen] = useState({
-    display: false, 
-    description: '',
-    name: '',
-    price: '',
-    brand: '',
-    _id: ''
+    chosenGlasses: ''
   })
   const valueSearch: ValueSearch = {
     brand: '',
@@ -44,18 +34,12 @@ export default function TryOnGlasses() {
   }, [])
 
 
+  const productListForWomen = productList?.filter((item: any) => item.category === category_women)
 
   const renderVirtualImg = () => {
-    return productList.map((item: any, index: any) => {
+    return productListForWomen?.map((item: any, index: any) => {
       return   <div className="col-4 d-flex align-items-center" key = {index}>
          <img src={item.virtualImg} onClick = {() => {
-           setProductChosen({...productChosen, 
-                            brand: item.brand,
-                            price: item.price,
-                            description: item.description,
-                            name: item.name,
-                            _id: item._id,
-                            display: true})
            setGlasses({...glasses, chosenGlasses: item.virtualImg, display: true})
 
          }} key ={index} alt= {item.virtualImg} className='img-fluid vglasses__items my-3'  />
@@ -64,7 +48,6 @@ export default function TryOnGlasses() {
     })
   }
   const displayClass = glasses.display? 'd-block' : 'd-none'
-  const displayInfo = productChosen.display? 'd-block' : 'd-none'
   
     return (
       <Container>
@@ -85,27 +68,15 @@ export default function TryOnGlasses() {
         <div className="mb-2 text-right mt-2 mr-2">
           <button className="btn-before" onClick = {()=> {
             setGlasses({...glasses, display: false})
-            setProductChosen({...productChosen, display: false})
           }}>Before</button>
           <button className="btn-after" onClick = {()=> {
             setGlasses({...glasses, display: true})
-            setProductChosen({...productChosen, display: true})
           }}>After</button>
         </div>
         <div className="vglasses__model" id="avatar">
         <img src={glasses.chosenGlasses} className = {displayClass} id="glasses" alt='chosenGlasses'/>
         </div>
-        <div id="glassesInfo" className= {`vglasses__info ${displayInfo}`}>
-            <h6 className='text-white'> {productChosen.brand} </h6>
-            <h6 className='text-white'>{productChosen.name}</h6>
-            <p className="card-text">
-            <span className="btn btn-success btn-sm mr-2"> $ {productChosen.price}</span>
-            </p>
-            <p className="card-text"> {truncateString(productChosen.description, 100)}  </p>
-            <NavLink to = {`/products/${productChosen._id}`}>
-           <ButtonAddToCart>  
-              Product Detail
-       </ButtonAddToCart></NavLink> 
+        <div id="glassesInfo" className="vglasses__info">
         </div>
       </div>
     </div>
