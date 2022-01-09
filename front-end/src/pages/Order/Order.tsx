@@ -26,7 +26,7 @@ export default function Order() {
         return item.products
       })
     }
-    
+    console.log('orderListByUserId', orderListByUserId);
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -56,16 +56,10 @@ export default function Order() {
           render: (text: any, record: any) => {
             return <div>
             <p>{record?.product?.name}</p>
-            <span> {record?.products?.product?.color.map((item: any, index: any) => {
-              return <Tag key={index} color={item}>
-              {item}
-            </Tag>
-            })} </span>
-             <div> {record?.products?.product?.size.map((item: any, index: any) => {
-              return <span key={index} className='badge'>
-              {item}
-            </span>
-            })} </div>
+          <Tag color={record?.products?.color}>{record?.products?.color}</Tag> 
+            <div>
+             <Tag> {record?.products?.size}</Tag>
+             </div>
             </div>
           },
           

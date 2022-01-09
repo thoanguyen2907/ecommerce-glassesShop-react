@@ -65,14 +65,14 @@ export default function PopularProduct() {
   const renderPopularProduct = () => {
     return productPopular?.map((item: any, index: any) => {
       return  <div className="product__info" key = {index}>
-        <div className="product__pic">
+        <NavLink to = {`/products/${item._id}`}> <div className="product__pic">
           <img src={item.productImg} alt="product__pic" />
         </div>
         <div className="product___detail">
-          <NavLink to = {`/products/${item._id}`}> <h4>{item.name}</h4> </NavLink> 
+          <h4>{item.name}</h4> 
           <h6>Price: {item.price}</h6>    
         </div>
-        
+        </NavLink> 
       </div>
 
     })

@@ -33,17 +33,18 @@ export default function ProductByCategory(props: IProps) {
     
       const renderProduct = () => {
         return productList?.map((item: any, index: any) => {
-          return <div className="col-3">
-              <div className="product__info" key = {index}>
+          return <div className="col-12 col-md-6 col-lg-3 my-2">
+              <NavLink to = {`/products/${item._id}`}> <div className="product__info" key = {index}>
             <div className="product__pic">
               <img src={item.productImg} alt="product__pic" />
             </div>
             <div className="product___detail">
-              <NavLink to = {`/products/${item._id}`}> <h4>{item.name}</h4> </NavLink> 
+             <h4>{item.name}</h4>
               <h6>Price: {item.price}</h6>    
             </div>
             
           </div>
+          </NavLink> 
           </div>
            
     

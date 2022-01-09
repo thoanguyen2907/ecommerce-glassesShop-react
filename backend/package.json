@@ -11,9 +11,9 @@
   "scripts": {
     "start": "npm run serve",
     "devStart": "nodemon src/server.ts",
-    "build": "npm run build-sass && npm run build-ts && npm run lint && npm run copy-static-assets",
-    "serve": "node dist/server.js",
-    "watch-node": "nodemon dist/server.js",
+    "build": "npm run build-ts && npm run lint",
+    "serve": "node src/server.ts",
+    "watch-node": "nodemon src/server.ts",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "test": "jest --forceExit --detectOpenHandles --coverage --verbose false",
     "watch-test": "npm run test -- --watchAll",
