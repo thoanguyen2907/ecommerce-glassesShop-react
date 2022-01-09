@@ -56,7 +56,10 @@ useEffect(() => {
   })
 }, [])
   const renderProductItem = () => {
-    return productList.map((item: any, index: any) => {
+    if(productList.length > 0) {
+
+    
+    return productList?.map((item: any, index: any) => {
       return <div className="col-12 col-md-6 col-lg-3 my-2" key = {index}>
       <div className="product__info" style={{width: '100%', textAlign: 'center'}}>
         <div className="product__pic">
@@ -76,6 +79,9 @@ useEffect(() => {
       </div>
     </div>
     })
+  } else {
+    return <div>No Products Available</div>
+  }
   }
     return (
         <div className = "product__list">
@@ -91,10 +97,10 @@ useEffect(() => {
                             placeholder="Select a color"
                             onChange={onColorChange}>
             <Option value="">All</Option>              
-      <Option value="black">black</Option>
-      <Option value="blue">blue</Option>
+      <Option value="black">Black</Option>
+      <Option value="blue">Blue</Option>
      
-      <Option value="grey">grey</Option>
+      <Option value="grey">Grey</Option>
     </Select>                          
                         </Form.Item>
 
@@ -113,7 +119,6 @@ useEffect(() => {
          <Option value="Ray-Ban">Ray-Band</Option>
       <Option value="Chanel">Chanel</Option>    
       <Option value="Gucci">Gucci</Option>
-     <Option value="Celine">Celine</Option>
     </Select>                          
                         </Form.Item>              
                     </div>
