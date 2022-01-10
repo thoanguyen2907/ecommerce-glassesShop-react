@@ -11,6 +11,7 @@ import Swal from 'sweetalert2'
 import { Container } from '../../StyledElements/Container/Container';
 import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart';
 import { ButtonBlue } from '../../StyledElements/Button/Button';
+import { openNotification } from '../../utils/notification/notification';
   
 export default function Order() {
 
@@ -87,7 +88,11 @@ export default function Order() {
            return <div>
                <ButtonAddToCart className="mr-3"
                 onClick={() => {
-                    console.log(record)
+              
+                    if(!(Number.isInteger(record.products.quantity) && record.products.quantity  > 1)) {
+                      openNotification('Error', 'Quantity must be greater than 1');
+                      return;
+                    }
                     dispatch({
                         type: "INCREASE_PRODUCT_QUANTITY_SAGA",
                         payload: {
@@ -103,7 +108,11 @@ export default function Order() {
           <span>{record.products.quantity}</span>
           <ButtonAddToCart   className="ml-3" 
           onClick={() => {
-        
+     
+            if(!(Number.isInteger(record.products.quantity) && record.products.quantity  > 1)) {
+              openNotification('Error', 'Quantity must be greater than 1');
+              return;
+            }
             dispatch({
                 type: "DECREASE_PRODUCT_QUANTITY_SAGA",
                 payload: {
