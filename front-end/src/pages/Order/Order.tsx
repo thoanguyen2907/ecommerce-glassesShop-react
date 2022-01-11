@@ -12,6 +12,7 @@ import { Container } from '../../StyledElements/Container/Container';
 import { ButtonAddToCart } from '../../StyledElements/ButtonAddToCart/ButtonAddToCart';
 import { ButtonBlue } from '../../StyledElements/Button/Button';
 import { openNotification } from '../../utils/notification/notification';
+import { DECREASE_PRODUCT_QUANTITY_SAGA, DELETE_ORDER_SAGA, GET_ORDERS_BY_USERID_SAGA, INCREASE_PRODUCT_QUANTITY_SAGA } from '../../types';
   
 export default function Order() {
 
@@ -27,12 +28,12 @@ export default function Order() {
         return item.products
       })
     }
-    console.log('orderListByUserId', orderListByUserId);
+  
     const dispatch = useDispatch()
 
     useEffect(() => {
      dispatch({
-       type: "GET_ORDERS_BY_USERID_SAGA",
+       type: GET_ORDERS_BY_USERID_SAGA,
        payload: {
         userId
        }
@@ -89,12 +90,12 @@ export default function Order() {
                <ButtonAddToCart className="mr-3"
                 onClick={() => {
               
-                    if(!(Number.isInteger(record.products.quantity) && record.products.quantity  > 1)) {
-                      openNotification('Error', 'Quantity must be greater than 1');
+                    if(!(Number.isInteger(record.products.quantity) && record.products.quantity  > 0)) {
+                      openNotification('Error', 'Quantity must be greater 0');
                       return;
                     }
                     dispatch({
-                        type: "INCREASE_PRODUCT_QUANTITY_SAGA",
+                        type: INCREASE_PRODUCT_QUANTITY_SAGA,
                         payload: {
                             orderId: record._id,
                             userId: record.user.id
@@ -109,12 +110,12 @@ export default function Order() {
           <ButtonAddToCart   className="ml-3" 
           onClick={() => {
      
-            if(!(Number.isInteger(record.products.quantity) && record.products.quantity  > 1)) {
-              openNotification('Error', 'Quantity must be greater than 1');
+            if(!(Number.isInteger(record.products.quantity) && record.products.quantity  > 0)) {
+              openNotification('Error', 'Quantity must be greater  0');
               return;
             }
             dispatch({
-                type: "DECREASE_PRODUCT_QUANTITY_SAGA",
+                type: DECREASE_PRODUCT_QUANTITY_SAGA,
                 payload: {
                     orderId: record._id,
                     userId: record.user.id
@@ -149,7 +150,7 @@ export default function Order() {
               <DeleteOutlined style={{color: '#eb2f96' }} 
               onClick={() => {
                 dispatch({
-                  type: "DELETE_ORDER_SAGA",
+                  type: DELETE_ORDER_SAGA,
                   payload: {
                     orderId: record._id,
                     userId: record.user.id

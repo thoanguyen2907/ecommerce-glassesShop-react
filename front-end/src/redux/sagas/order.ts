@@ -1,4 +1,4 @@
-import { AddOrderAction, DECREASE_PRODUCT_QUANTITY_SAGA, DELETE_ORDER_SAGA, DELETE_ORDER_SAGA_ADMIN, GET_ORDERS_BY_USERID_SAGA, GET_ORDER_LIST_SAGA, INCREASE_PRODUCT_QUANTITY_SAGA, RemoveOrderAction } from './../../types';
+import { AddOrderAction, ADD_ORDER_SAGA, DECREASE_PRODUCT_QUANTITY_SAGA, DELETE_ORDER_SAGA, DELETE_ORDER_SAGA_ADMIN, GET_ORDERS_BY_USERID_SAGA, GET_ORDER_LIST_SAGA, INCREASE_PRODUCT_QUANTITY_SAGA, RemoveOrderAction } from './../../types';
 import { STATUSCODE } from './../../utils/constants/settingSystem'
 
 import { delay, select, takeLatest } from 'redux-saga/effects'
@@ -128,6 +128,7 @@ function* addOrderSaga(action: AddOrderAction) {
   
   try {
     const { data, status } = yield call(() => orderService.addOrder({user, products}))
+ 
     openNotification('Successfully', 'Add Order Successfully !!');
     //DATA GET FROM API
     yield put({
@@ -142,7 +143,7 @@ function* addOrderSaga(action: AddOrderAction) {
   }
 }
 export function* trackingAddOrderSaga() {
-  yield takeLatest('ADD_ORDER_SAGA', addOrderSaga)
+  yield takeLatest(ADD_ORDER_SAGA, addOrderSaga)
 }
 function* deleteOrderSaga(action: RemoveOrderAction) {
   const {orderId} = action.payload
