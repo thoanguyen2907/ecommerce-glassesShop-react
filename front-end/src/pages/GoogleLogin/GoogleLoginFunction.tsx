@@ -34,7 +34,7 @@ const responseGoogle = async (response: any) => {
     return (
         <div>
              <GoogleLogin
-    clientId='627197289438-q9pagstkv3sk03pbssfisjqgrgidv7lo.apps.googleusercontent.com'
+    clientId='627197289438-4dve54rv215phlj7u24edpjprt96ij92.apps.googleusercontent.com'
     buttonText="Login Google"
     onSuccess={responseGoogle}
     onFailure={responseGoogle}

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/img/pngwing.com.png';
-import { GET_USER_BY_ID } from '../../types';
+import { GET_ORDERS_BY_USERID_SAGA, GET_USER_BY_ID } from '../../types';
 import './Header.scss'
 import _ from 'lodash';
 import { NavLink } from 'react-router-dom';
@@ -18,7 +18,6 @@ export default function Header() {
   const userData = {...userDataLogin}
   const userId = userData?.id
   const orderNumber = orderListByUserId?.length
- console.log('orderListByUserId', orderListByUserId);
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -31,7 +30,7 @@ export default function Header() {
   }, [])
   useEffect(() => {
     dispatch({
-      type: "GET_ORDERS_BY_USERID_SAGA",
+      type: GET_ORDERS_BY_USERID_SAGA,
       payload: {
        userId
       }

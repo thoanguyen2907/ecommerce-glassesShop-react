@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import * as Yup from 'yup'
 import { history } from '../../utils/history/history';
 import ProductByCategory from '../ProductByCategory/ProductByCategory'
+import { ADD_ORDER_SAGA, GET_PRODUCT_DETAIL_SAGA } from '../../types';
 
 export default function ProductDetail() {
     const  {productId}: any = useParams()
@@ -31,7 +32,7 @@ export default function ProductDetail() {
  
     useEffect(() => {   
        dispatch({
-           type: "GET_PRODUCT_DETAIL_SAGA",
+           type: GET_PRODUCT_DETAIL_SAGA,
            payload: {
             productId
            }
@@ -46,10 +47,10 @@ export default function ProductDetail() {
         },
         validationSchema,
         onSubmit: async (values) => {
-            console.log(values);
+            
             if(userId !== '') {
                          dispatch({
-                    type: "ADD_ORDER_SAGA",
+                    type: ADD_ORDER_SAGA,
                     payload: {
                         user: userId,
                         products: {
