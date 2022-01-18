@@ -40,7 +40,7 @@ export const createProduct = async (
         })
         await ProductService.create(product)
         res.status(200).json({
-          success : true,
+          success: true,
           data: product
         })
       }

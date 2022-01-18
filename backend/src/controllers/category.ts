@@ -6,7 +6,7 @@ import ProductService from '../services/product'
 import { BadRequestError } from '../helpers/apiError'
 import  {validationResult } from 'express-validator'
 import validation from '../validates/Category'
-import { resolveSoa } from 'dns'
+
 // POST /category
 export const createCategory = async (
   req: Request,

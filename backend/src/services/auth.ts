@@ -27,10 +27,7 @@ export const forgotPassword =  async (item: any) => {
    
       //send reset token to user and save in database
       const resetToken = await user.resetPassword()
-
       await user.save()
-     
-      console.log(user) 
       //create reset URL 
       const resetURL = `http://localhost:3000/resetPassword/${resetToken}`
       const message = `Access the link to change password : ${resetURL}`
@@ -42,7 +39,7 @@ export const forgotPassword =  async (item: any) => {
           })
           return 'Please check your email !!!'
       } catch(error) {
-        console.log(error)
+    
           user.resetPassToken = undefined,
           user.resetPassTokenExp = undefined,
           await user.save()
@@ -60,7 +57,7 @@ export const resetPassword = async (item: any) => {
                           .digest('hex')
   
   const user = await User.findOne( {resetPassToken: resetPassToken })
-  if(!user) return false
+  if(!user)  return false
   user.password = await item.password 
   user.resetPassToken = undefined
   user.resetPassTokenExp = undefined

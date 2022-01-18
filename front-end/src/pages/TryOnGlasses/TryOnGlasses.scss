@@ -28,9 +28,9 @@
     }
     .vglasses__model img{
         position: absolute;
-        top: 46%;
-        left: 26%;
-        width: 364px;
+        top: 34%;
+        left: 22%;
+        width: 334px;
         height: 112px;
         opacity: 0.9;
     }
@@ -73,7 +73,7 @@
     .vglasses__right{
     .vglasses__model img{
     position: absolute;
-    top: 40%;
+    top: 48%;
     left: 25%;
     width: 256px;
     height: 80px;
@@ -106,8 +106,7 @@
 
 @media screen and (max-width: 1200px) and (min-width: 1024px) {
     .vglasses__right{
-        .vglasses__model img{
-
+     .vglasses__model img{
     top: 31%;
     left: 16%;
     width: 280px;
@@ -118,7 +117,7 @@
 @media screen and (max-width: 992px) and (min-width: 768px) {
     .vglasses__right{
         .vglasses__model img{
-            top: 42%;
+            top: 50%;
             left: 26%;
             width: 355px;
             height: 104px;
