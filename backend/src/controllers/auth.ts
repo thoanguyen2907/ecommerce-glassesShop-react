@@ -30,10 +30,10 @@ export const registerAdmin = async (
 ) => {
   try {
     const { lastName, firstName, email, phone, password} = req.body
+    //check validation of object
     const result = await validationResult(req)
     if (!result.isEmpty()) {
-      const errors = await result.array()
-     
+      const errors = await result.array() 
       const messages = await validation.showErrors(errors)    
       res.status(400).json({
           success : false,
@@ -51,6 +51,7 @@ export const registerAdmin = async (
       })
   
       const newUser = await AuthService.register(user)
+      //getJwtToken to return token when new user register 
       const token = await newUser.getJwtToken()
       if (token) {
         saveCookieResponse(res, 201, token)
@@ -81,8 +82,7 @@ export const registerUser = async (
     const { lastName, firstName, email, phone, password} = req.body
     const result = await validationResult(req)
     if (!result.isEmpty()) {
-      const errors = await result.array()
-     
+      const errors = await result.array()    
       const messages = await validation.showErrors(errors)    
       res.status(400).json({
           success : false,
@@ -99,7 +99,6 @@ export const registerUser = async (
         role: 'user'
       })
       const newUser = await AuthService.register(user)
-      console.log(newUser)
       const token = await newUser.getJwtToken()
       if (token) {
         saveCookieResponse(res, 201, token)
@@ -156,7 +155,7 @@ export const loginGoogle = async (
             const email =  response.getPayload()?.email
             const name =  response.getPayload()?.name
            const user =  await User.findOne({email: email})
-          // console.log('user', user)
+          // if user exist, find user in database and return token
             if(user) { 
              req.user  = user
              const token = await jwt.sign({ id: user._id }, JWT_SECRET, {
@@ -170,16 +169,16 @@ export const loginGoogle = async (
       })
             } 
             else {
+              //if user did not exist, create as a new user 
              const password = email+ 'ahcdada'
              
              const userGoogleLogin = await new User({firstName: 'Google login',lastName: name, email, password, role: 'user'})
            
              const newUser = await AuthService.register(userGoogleLogin)
               // console.log('newUser', newUser)
-             newUser.save((err, data) => {
-               
+             newUser.save((err, data) => {               
                 const token = jwt.sign({ id: data._id }, JWT_SECRET, {
-                      expiresIn: '2h',
+                      expiresIn: '2h'
                     })
                 const {_id, lastName, email, id} = newUser
                 res.status(201).json({
@@ -213,6 +212,7 @@ export const logout= async (
   next: NextFunction
 ) => {
   try {
+    //set token in cookie to non when logout
     return res.status(200).cookie('token','none',{
       expires: new Date(
         Date.now() + 10 * 1000
@@ -233,13 +233,16 @@ export const forgotPasswordUser =  async (
   res: Response,
   next: NextFunction
   ) => { 
+    //find email of user in database
     const result = await AuthService.forgotPassword(req.body)
+    //if email not exis
     if(!result) {
         res.status(401).json({
             success: false,
             messages: 'Email is not exists'
         })
     } else {
+      //if email exist, return user data
         res.status(201).json({
             success: true,
             data: result
@@ -251,8 +254,7 @@ export const resetPasswordUser = async (
   res: Response,
   next: NextFunction
   ) => {
-  const result = await AuthService.resetPassword({resetToken: req.params.resetToken, 
-    password: req.body.password
+  const result = await AuthService.resetPassword({resetToken: req.params.resetToken,  password: req.body.password
     })
     if(!result) {
         res.status(401).json({

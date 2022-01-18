@@ -35,6 +35,7 @@ export const createUser = async (
       })
     const newUser = await UserService.create(user)
     const token = await newUser.getJwtToken()
+    //return newUser, token 
    return res.status(200).json({ 
      success: true,
      newUser,
@@ -58,7 +59,9 @@ export const updateUser = async (
   try {
     const update = req.body
     const userId = req.params.userId
+    //find user by id
     const updatedUser = await UserService.update(userId, update)
+
     return res.status(200).json({
       success: true,
       updatedUser

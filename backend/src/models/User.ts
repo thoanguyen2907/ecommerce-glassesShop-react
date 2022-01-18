@@ -68,15 +68,16 @@ userSchema.pre<UserDocument>('save', function (next) {
 })
 
 export interface UserModel extends Model<UserDocument> {
-  findByCredentials(email: string, password: string): Promise<any>,
-
+  findByCredentials(email: string, password: string): Promise<any>
 }
 
+//return token when user login or register 
 userSchema.methods.getJwtToken = function () {
   return jwt.sign({ id: this._id }, JWT_SECRET, {
-    expiresIn: '10h',
+    expiresIn: '2h',
   })
 }
+
 userSchema.methods.updateNew = async function (userNew) {
 
   const isMatch = await bcrypt.compare(userNew.password, this.password)

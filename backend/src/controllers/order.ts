@@ -26,8 +26,11 @@ export const createOrder = async (
     
     } else {
       const order = new Order({user, products})
+      //get the order list of specific user
       const userOrderList = await OrderService.getOrderByUserId(user)
-    const productOrder = await userOrderList.find((item) => item.products.product._id == products.product)
+      //check whether the product exists in order list or not 
+      const productOrder = await userOrderList.find((item) => item.products.product._id == products.product)
+  
     if(!productOrder) {
        await OrderService.create(order)
        return res.status(200).json({
