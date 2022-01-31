@@ -40,7 +40,7 @@ describe('product service', () => {
     const product = await createProduct()
     expect(product).toHaveProperty('_id')
     expect(product).toHaveProperty('name', 'RAY-BAN MONOCHROMS 03')
-    expect(product).toHaveProperty('duration', 90)
+    expect(product).toHaveProperty('newArrival', true)
   })
 
   it('should get a product with id', async () => {
@@ -55,7 +55,7 @@ describe('product service', () => {
   it('should not get a non-existing product', async () => {
     expect.assertions(1)
     return ProductService.findById(nonExistingProductId).catch((e) => {
-      expect(e.message).toMatch(`Product ${nonExistingProductId} not found`)
+      expect(e.message).toMatch(`product ${nonExistingProductId} not found`)
     })
   })
 
@@ -86,7 +86,7 @@ describe('product service', () => {
     const product = await createProduct()
     await ProductService.deleteProduct(product._id)
     return ProductService.findById(product._id).catch((e) => {
-      expect(e.message).toBe(`Product ${product._id} not found`)
+      expect(e.message).toBe(`product ${product._id} not found`)
     })
   })
 })

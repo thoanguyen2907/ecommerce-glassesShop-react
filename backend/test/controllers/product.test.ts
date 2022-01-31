@@ -2,7 +2,7 @@ import request from 'supertest'
 import { ProductDocument } from '../../src/models/Product'
 import app from '../../src/app'
 import connect, { MongodHelper } from '../db-helper'
-// import '@types/jest';
+import '@types/jest';
 const nonExistingProductId = '5e57b77b5744fa0b461c7906'
 
 async function createProduct(override?: Partial<ProductDocument>) {
