@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["es6"],
     "target": "es6",
-   
+    "types": ["jest", "node"],
     "moduleResolution": "node",
     "sourceMap": false,
     "outDir": "dist",

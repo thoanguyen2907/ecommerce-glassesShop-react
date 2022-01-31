@@ -2,25 +2,25 @@
 import mongoose, { Document } from 'mongoose'
 
 export type ProductDocument = Document & {
-  id: string,
-  name: string,
-	price: string,
-	description: string,
-  dislike?: number,
-	like?: number,
-	brand: string,
-	size: [string],
-	color: [string],
-  category: string,
-  productImg: string,
-  virtualImg: string,
-  popular: boolean,
+  id?: string
+  name: string
+  price: string
+  description: string
+  dislike?: number
+  like?: number
+  brand: string
+  size: [string]
+  color: [string]
+  category: string
+  productImg: string
+  virtualImg: string
+  popular: boolean
   newArrival: boolean
 }
 
 const productSchema = new mongoose.Schema({
   id: {
-    type: String
+    type: String,
   },
   name: {
     type: String,
@@ -29,8 +29,8 @@ const productSchema = new mongoose.Schema({
   },
 
   category: {
-      ref: 'category',
-      type: String
+    ref: 'category',
+    type: String,
   },
   description: {
     type: String,
@@ -53,7 +53,7 @@ const productSchema = new mongoose.Schema({
   },
   price: {
     type: Number,
-    required: true
+    required: true,
   },
   dislike: {
     type: Number,
@@ -74,16 +74,14 @@ const productSchema = new mongoose.Schema({
   },
   newArrival: {
     type: Boolean,
-  }
-}
-)
+  },
+})
 
 productSchema.virtual('', {
-	ref: 'orders', //The Model to use
-	localField: '_id', //Find in Model, where localField 
-	foreignField: 'product', // is equal to foreignField
- })
-
+  ref: 'orders', //The Model to use
+  localField: '_id', //Find in Model, where localField
+  foreignField: 'product', // is equal to foreignField
+})
 
 // Set Object and Json property to true. Default is set to false
 productSchema.set('toObject', { virtuals: true })

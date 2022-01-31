@@ -193,22 +193,6 @@ export type Category = {
 	slug: string
 }
 
-export type Theme = {
-  bgColor: string
-  color: string
-  borderButton: string
-  borderRadiusButton: string
-  hoverTextColor: string
-  hoverBgColor: string
-  borderColor: string
-}
-export type ThemeState = {
-  mainTheme: {
-    id: string
-    name: string
-    theme: Theme
-  }
-}
 export type ValueSearch = {
   brand: String,
   color: String, 
@@ -489,12 +473,6 @@ export type RemoveCategoryAction = {
 
 export type OrderActions = GetOrderAction | GetOrderListByUserIdAction | SendEditedOrderAction | AddOrderNoLoginAction | DeleteOrderNoLoginAction | InDecreaseOrderNoLoginAction
 
-export type ChangeThemeAction = {
-  type: typeof CHANGE_THEME
-  payload: {
-    value: string
-  }
-}
 
 // Use this union in reducer
 export type DrawerActions =

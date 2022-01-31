@@ -84,7 +84,7 @@ function* updateCategorySaga(action: EditCategoryAction) {
   const {id, category} = action.payload
   try {
     const { data } = yield call(() => categoryService.editCategory(id, category))
-    console.log(data)
+
     if(data.success){
       openNotification('Successful !', 'Update category successfully !!!')
       yield put({
